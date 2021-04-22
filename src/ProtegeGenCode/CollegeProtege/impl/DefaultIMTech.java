@@ -25,11 +25,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Source Class: DefaultIMTech <br>
  * @version generated on Sat Apr 03 10:21:32 IST 2021 by prateksha
  */
-@Entity
- public class DefaultIMTech extends WrappedIndividualImpl implements IMTech , Serializable {
-	 private static final long serialVersionUID = 1L;
-	 @Id @GeneratedValue
-	 private long id;
+
+ public class DefaultIMTech extends WrappedIndividualImpl implements IMTech  {
 
     public DefaultIMTech(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);

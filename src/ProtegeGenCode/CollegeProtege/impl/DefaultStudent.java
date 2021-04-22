@@ -25,18 +25,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Source Class: DefaultStudent <br>
  * @version generated on Sat Apr 03 10:21:32 IST 2021 by prateksha
  */
-@Entity
- public class DefaultStudent extends WrappedIndividualImpl implements Student , Serializable {
-	 private static final long serialVersionUID = 1L;
-	 @Id @GeneratedValue
-	 private long id;
+
+ public class DefaultStudent extends WrappedIndividualImpl implements Student {
 
     public DefaultStudent(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
     }
-
-
-
 
 
     /* ***************************************************

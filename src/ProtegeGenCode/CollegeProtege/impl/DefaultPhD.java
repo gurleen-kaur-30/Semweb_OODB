@@ -25,11 +25,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Source Class: DefaultPhD <br>
  * @version generated on Sat Apr 03 10:21:32 IST 2021 by prateksha
  */
-@Entity
- public class DefaultPhD extends WrappedIndividualImpl implements PhD , Serializable {
-	 private static final long serialVersionUID = 1L;
-	 @Id @GeneratedValue
-	 private long id;
+
+ public class DefaultPhD extends WrappedIndividualImpl implements PhD {
 
     public DefaultPhD(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);

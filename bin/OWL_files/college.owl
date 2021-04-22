@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/prateksha/ontologies/2021/1/college"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/prateksha/ontologies/2021/1/college">
+    <Prefix name="" IRI="http://www.semanticweb.org/prateksha/ontologies/2021/1/college"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#College"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Course"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MTech"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PhD"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Professor"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Student"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#iMTech"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#admits"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#employs"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#taughtBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#teaches"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasDebt"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasRollNumber"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Aishwarya"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#DB"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#DM"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#DSA"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Gurleen"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#IIITB"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Murali"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Prateksha"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#RC"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Rachna"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#MTech"/>
+        <Class IRI="#Student"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PhD"/>
+        <Class IRI="#Student"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#iMTech"/>
+        <Class IRI="#Student"/>
+    </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="#MTech"/>
+        <NamedIndividual IRI="#Aishwarya"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Course"/>
+        <NamedIndividual IRI="#DB"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Course"/>
+        <NamedIndividual IRI="#DM"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Course"/>
+        <NamedIndividual IRI="#DSA"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#iMTech"/>
+        <NamedIndividual IRI="#Gurleen"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#College"/>
+        <NamedIndividual IRI="#IIITB"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Professor"/>
+        <NamedIndividual IRI="#Murali"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#iMTech"/>
+        <NamedIndividual IRI="#Prateksha"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Professor"/>
+        <NamedIndividual IRI="#RC"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MTech"/>
+        <NamedIndividual IRI="#Rachna"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#admits"/>
+        <NamedIndividual IRI="#IIITB"/>
+        <NamedIndividual IRI="#Aishwarya"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#admits"/>
+        <NamedIndividual IRI="#IIITB"/>
+        <NamedIndividual IRI="#Gurleen"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#admits"/>
+        <NamedIndividual IRI="#IIITB"/>
+        <NamedIndividual IRI="#Prateksha"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#admits"/>
+        <NamedIndividual IRI="#IIITB"/>
+        <NamedIndividual IRI="#Rachna"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#employs"/>
+        <NamedIndividual IRI="#IIITB"/>
+        <NamedIndividual IRI="#Murali"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#employs"/>
+        <NamedIndividual IRI="#IIITB"/>
+        <NamedIndividual IRI="#RC"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#teaches"/>
+        <NamedIndividual IRI="#Murali"/>
+        <NamedIndividual IRI="#DSA"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#teaches"/>
+        <NamedIndividual IRI="#RC"/>
+        <NamedIndividual IRI="#DB"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#teaches"/>
+        <NamedIndividual IRI="#RC"/>
+        <NamedIndividual IRI="#DM"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDebt"/>
+        <NamedIndividual IRI="#Aishwarya"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">5000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasRollNumber"/>
+        <NamedIndividual IRI="#Aishwarya"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">038</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDebt"/>
+        <NamedIndividual IRI="#Gurleen"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasRollNumber"/>
+        <NamedIndividual IRI="#Gurleen"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">020</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDebt"/>
+        <NamedIndividual IRI="#Prateksha"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasRollNumber"/>
+        <NamedIndividual IRI="#Prateksha"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">517</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDebt"/>
+        <NamedIndividual IRI="#Rachna"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasRollNumber"/>
+        <NamedIndividual IRI="#Rachna"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">002</Literal>
+    </DataPropertyAssertion>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#taughtBy"/>
+        <ObjectProperty IRI="#teaches"/>
+    </InverseObjectProperties>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#admits"/>
+        <Class IRI="#College"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#employs"/>
+        <Class IRI="#College"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#teaches"/>
+        <Class IRI="#Professor"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#admits"/>
+        <Class IRI="#Student"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#employs"/>
+        <Class IRI="#Professor"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#teaches"/>
+        <Class IRI="#Course"/>
+    </ObjectPropertyRange>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasDebt"/>
+        <Class IRI="#Student"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasRollNumber"/>
+        <Class IRI="#Student"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasDebt"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasRollNumber"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

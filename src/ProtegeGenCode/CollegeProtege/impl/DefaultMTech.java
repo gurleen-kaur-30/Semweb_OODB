@@ -37,7 +37,7 @@ private Collection<? extends Integer> HasRollNumber;
 
     public DefaultMTech(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
-		 name = iri.toString()
+		 name = iri.toString();
 	HasDebt=getHasDebt();
 	HasRollNumber=getHasRollNumber();
 	

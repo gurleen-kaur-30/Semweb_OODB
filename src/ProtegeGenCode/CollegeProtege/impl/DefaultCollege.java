@@ -38,7 +38,7 @@ private Collection<? extends Professor> Employs;
 
     public DefaultCollege(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
-		 name = iri.toString()
+		 name = iri.toString();
 	Admits=getAdmits();
 	Employs=getEmploys();
 	

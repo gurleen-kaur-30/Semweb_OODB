@@ -1,0 +1,58 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-04-23 00:21:21 #1 store] 
+Database '/home/prateksha/eclipse-workspace/SemWeb_OODB/jars/db/college_db.odb' is opened by 5971@prateksha-Lenovo-ideapad-530S-15IKB
+
+[2021-04-23 00:21:21 #2 store] 
+Configuration path: ?
+
+[2021-04-23 00:21:22 #3 type] 
+Type ProtegeGenCode.CollegeProtege.impl.DefaultCollege is not enhanced.
+
+[2021-04-23 00:21:22 #4 type] 
+Type ProtegeGenCode.CollegeProtege.impl.DefaultCourse is not enhanced.
+
+[2021-04-23 00:21:22 #5 type] 
+Type ProtegeGenCode.CollegeProtege.impl.DefaultMTech is not enhanced.
+
+[2021-04-23 00:21:22 #6 type] 
+Type ProtegeGenCode.CollegeProtege.impl.DefaultProfessor is not enhanced.
+
+[2021-04-23 00:21:22 #7 type] 
+Type ProtegeGenCode.CollegeProtege.impl.DefaultIMTech is not enhanced.
+
+[2021-04-23 00:21:23 #8 type] 
+Type ProtegeGenCode.CollegeProtege.impl.DefaultStudent is not enhanced.
+
+[2021-04-23 00:21:23 #9 store] 
+Database '/home/prateksha/eclipse-workspace/SemWeb_OODB/jars/db/college_db.odb' is closed by 5971@prateksha-Lenovo-ideapad-530S-15IKB
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-04-23 00:23:53 #1 store] 
+Database '/home/prateksha/eclipse-workspace/SemWeb_OODB/jars/db/college_db.odb' is opened by 6083@prateksha-Lenovo-ideapad-530S-15IKB
+
+[2021-04-23 00:23:53 #2 store] 
+Configuration path: ?
+
+[2021-04-23 00:23:54 #3 type] 
+Type ProtegeGenCode.CollegeProtege.impl.DefaultCollege is not enhanced.
+
+[2021-04-23 00:23:54 #4 type] 
+Type ProtegeGenCode.CollegeProtege.impl.DefaultCourse is not enhanced.
+
+[2021-04-23 00:23:54 #5 type] 
+Type ProtegeGenCode.CollegeProtege.impl.DefaultMTech is not enhanced.
+
+[2021-04-23 00:23:54 #6 type] 
+Type ProtegeGenCode.CollegeProtege.impl.DefaultProfessor is not enhanced.
+
+[2021-04-23 00:23:54 #7 type] 
+Type ProtegeGenCode.CollegeProtege.impl.DefaultIMTech is not enhanced.
+
+[2021-04-23 00:23:54 #8 type] 
+Type ProtegeGenCode.CollegeProtege.impl.DefaultStudent is not enhanced.
+
+[2021-04-23 00:23:54 #9 store] 
+Database '/home/prateksha/eclipse-workspace/SemWeb_OODB/jars/db/college_db.odb' is closed by 6083@prateksha-Lenovo-ideapad-530S-15IKB
+

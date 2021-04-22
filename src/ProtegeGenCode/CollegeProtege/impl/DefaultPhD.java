@@ -38,7 +38,7 @@ private Collection<? extends Integer> HasRollNumber;
 
     public DefaultPhD(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
-		 name = iri.toString()
+		 name = iri.toString();
 	HasDebt=getHasDebt();
 	HasRollNumber=getHasRollNumber();
 	

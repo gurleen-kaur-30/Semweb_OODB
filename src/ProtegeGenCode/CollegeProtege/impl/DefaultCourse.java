@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
     public DefaultCourse(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
-		 name = iri.toString()
+		 name = iri.toString();
 	
     }
 

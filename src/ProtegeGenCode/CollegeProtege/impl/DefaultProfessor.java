@@ -37,7 +37,7 @@ private Collection<? extends Course> Teaches;
 
     public DefaultProfessor(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
-		 name = iri.toString()
+		 name = iri.toString();
 	Teaches=getTeaches();
 	
     }

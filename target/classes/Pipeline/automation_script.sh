@@ -1,6 +1,6 @@
 #!/bin/sh
 PROJECT_NAME=$1
-CLASSES_DIR=../protegeCodeGen/$PROJECT_NAME/impl
+CLASSES_DIR=../ProtegeGenCode/$PROJECT_NAME/impl
 
 for c in $CLASSES_DIR/*
 do
@@ -37,7 +37,7 @@ do
     sed -i "s/${l}/${name_var}/g" "$c"
 
     constructor="super(inference, iri);"
-    name_con="\t name = iri.toString()"
+    name_con="\t name = iri.toString();"
 
     init_private_var="`grep -o "get.*{$" "$c"`" 
     init_private_var="`echo "$init_private_var" | rev | cut -c 2- | rev`"

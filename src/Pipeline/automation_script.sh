@@ -1,6 +1,6 @@
 #!/bin/sh
 PROJECT_NAME=$1
-CLASSES_DIR=../protegeCodeGen/$PROJECT_NAME/impl
+CLASSES_DIR=../ProtegeGenCode/$PROJECT_NAME/impl
 
 for c in $CLASSES_DIR/*
 do

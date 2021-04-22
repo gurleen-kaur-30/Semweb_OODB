@@ -26,10 +26,22 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @version generated on Sat Apr 03 10:21:32 IST 2021 by prateksha
  */
 
- public class DefaultIMTech extends WrappedIndividualImpl implements IMTech  {
+ @Entity
+ public class DefaultIMTech extends WrappedIndividualImpl implements IMTech  , Serializable {
+	 private static final long serialVersionUID = 1L;
+	 @Id @GeneratedValue
+	 private long id;
+	 private String name;
+	
+private Collection<? extends Integer> HasDebt;
+private Collection<? extends Integer> HasRollNumber;
 
     public DefaultIMTech(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
+		 name = iri.toString()
+	HasDebt=getHasDebt();
+	HasRollNumber=getHasRollNumber();
+	
     }
 
 

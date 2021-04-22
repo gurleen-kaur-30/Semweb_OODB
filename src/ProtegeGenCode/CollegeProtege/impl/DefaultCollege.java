@@ -26,10 +26,22 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @version generated on Sat Apr 03 10:21:32 IST 2021 by prateksha
  */
 
- public class DefaultCollege extends WrappedIndividualImpl implements College {
+ @Entity
+ public class DefaultCollege extends WrappedIndividualImpl implements College , Serializable {
+	 private static final long serialVersionUID = 1L;
+	 @Id @GeneratedValue
+	 private long id;
+	 private String name;
+	
+private Collection<? extends Student> Admits;
+private Collection<? extends Professor> Employs;
 
     public DefaultCollege(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
+		 name = iri.toString()
+	Admits=getAdmits();
+	Employs=getEmploys();
+	
     }
 
 

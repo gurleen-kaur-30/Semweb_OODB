@@ -26,10 +26,18 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @version generated on Sat Apr 03 10:21:32 IST 2021 by prateksha
  */
 
- public class DefaultCourse extends WrappedIndividualImpl implements Course {
+ @Entity
+ public class DefaultCourse extends WrappedIndividualImpl implements Course , Serializable {
+	 private static final long serialVersionUID = 1L;
+	 @Id @GeneratedValue
+	 private long id;
+	 private String name;
+	
 
     public DefaultCourse(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
+		 name = iri.toString()
+	
     }
 
 

@@ -26,10 +26,20 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @version generated on Sat Apr 03 10:21:32 IST 2021 by prateksha
  */
 
- public class DefaultProfessor extends WrappedIndividualImpl implements Professor {
+ @Entity
+ public class DefaultProfessor extends WrappedIndividualImpl implements Professor , Serializable {
+	 private static final long serialVersionUID = 1L;
+	 @Id @GeneratedValue
+	 private long id;
+	 private String name;
+	
+private Collection<? extends Course> Teaches;
 
     public DefaultProfessor(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
+		 name = iri.toString()
+	Teaches=getTeaches();
+	
     }
 
 

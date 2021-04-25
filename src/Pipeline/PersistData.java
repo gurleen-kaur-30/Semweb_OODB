@@ -15,7 +15,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import ProtegeGenCode.CollegeProtege.*;
 import ProtegeGenCode.CollegeProtege.impl.*;
 
-public class Main {
+public class PersistData {
 	public static void main(String[] argv) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		persist_data("$objectdb/db/college_db.odb", "src/OWL_files/college.owl");
 		
@@ -28,6 +28,7 @@ public class Main {
 			OWLOntologyManager om = OWLManager.createOWLOntologyManager();
 			OWLOntology o = om.loadOntologyFromOntologyDocument(file);
 			CollegeProtege root = new CollegeProtege(o);
+			System.out.println(o.getOntologyID().getOntologyIRI());
 			Class c = CollegeProtege.class;
 	        Method[] methods = c.getMethods();
 	        

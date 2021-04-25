@@ -9,8 +9,8 @@ do
     l="`grep 'public class' "$c"`"
     l_1="`echo "$l" | rev | cut -c 2- | rev`"
     l_2="${l_1}, Serializable {"
-    id_var="${l_2}\n\t private static final long serialVersionUID = 1L;\n\t @Id @GeneratedValue\n\t private long id;"
-    name_var="${id_var}\n\t private String name;"
+    id_var="${l_2}\n\t private static final long serialVersionUID = 1L;\n\t @GeneratedValue\n\t private long id;"
+    name_var="${id_var}\n\t @Id private String name;"
 
     func="`grep "get.*{$" "$c"`" 
     # echo "$func"

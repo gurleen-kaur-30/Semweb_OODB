@@ -30,8 +30,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  @Entity
  public class DefaultStudent extends WrappedIndividualImpl implements Student , Serializable {
 	 private static final long serialVersionUID = 1L;
-	 @Id @GeneratedValue
+	 @GeneratedValue
 	 private long id;
+	 @Id
 	 private String name;
 	
 @Embedded private Collection<? extends Integer> HasDebt;
@@ -42,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 		 name = iri.toString();
 	HasDebt=getHasDebt();
 	HasRollNumber=getHasRollNumber();
+	System.out.println("Constructor called for Student");
 	
     }
 

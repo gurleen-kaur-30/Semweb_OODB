@@ -32,6 +32,7 @@ public class Main {
 	        Method[] methods = c.getMethods();
 	        
 	        em.getTransaction().begin();
+	        System.out.println("Before everything");
 	        for (int i = 0; i < methods.length; i++) {
 	            String methodName = methods[i].getName();
 	            if (methodName.length()>=6 && "getAll".equals(methodName.substring(0,6))) {

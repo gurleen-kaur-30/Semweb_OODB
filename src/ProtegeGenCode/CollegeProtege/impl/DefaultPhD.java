@@ -30,8 +30,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  @Entity
  public class DefaultPhD extends WrappedIndividualImpl implements PhD , Serializable {
 	 private static final long serialVersionUID = 1L;
-	 @Id @GeneratedValue
+	 @GeneratedValue
 	 private long id;
+	 @Id
 	 private String name;
 	
 @Embedded private Collection<? extends Integer> HasDebt;

@@ -30,8 +30,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  @Entity
  public class DefaultProfessor extends WrappedIndividualImpl implements Professor , Serializable {
 	 private static final long serialVersionUID = 1L;
-	 @Id @GeneratedValue
+	 @GeneratedValue
 	 private long id;
+	 @Id
 	 private String name;
 	
 @Embedded private Collection<? extends Course> Teaches;
@@ -40,6 +41,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
         super(inference, iri);
 		 name = iri.toString();
 	Teaches=getTeaches();
+	System.out.println("Constructor called for Professor");
     }
 
 

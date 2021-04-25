@@ -29,8 +29,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  @Entity
  public class DefaultCourse extends WrappedIndividualImpl implements Course , Serializable {
 	 private static final long serialVersionUID = 1L;
-	 @Id @GeneratedValue
+	 @GeneratedValue
 	 private long id;
+	 @Id
 	 private String name;
 	
 

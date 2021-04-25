@@ -39,7 +39,6 @@ private Collection<? extends Course> Teaches;
         super(inference, iri);
 		 name = iri.toString();
 	Teaches=getTeaches();
-	
     }
 
 

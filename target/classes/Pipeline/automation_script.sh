@@ -56,5 +56,6 @@ do
     new_constructor="${constructor}\n\t${name_con}\n\t${final_init}"
     sed -i "s/${constructor}/${new_constructor}/g" "$c"
 
+    sed -i "s/private Collection/@Embedded private Collection/g" "$c"
     # echo "$final_init"
 done

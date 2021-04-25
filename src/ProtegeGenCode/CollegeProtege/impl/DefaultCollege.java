@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.Collection;
 
+import javax.jdo.annotations.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -33,8 +34,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 	 private long id;
 	 private String name;
 	
-private Collection<? extends Student> Admits;
-private Collection<? extends Professor> Employs;
+@Embedded private Collection<? extends Student> Admits;
+@Embedded private Collection<? extends Professor> Employs;
 
     public DefaultCollege(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);

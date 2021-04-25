@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.Collection;
 
+import javax.jdo.annotations.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 	 private long id;
 	 private String name;
 	
-private Collection<? extends Course> Teaches;
+@Embedded private Collection<? extends Course> Teaches;
 
     public DefaultProfessor(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);

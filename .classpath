@@ -11,14 +11,15 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/prateksha/eclipse-workspace/SemWeb_OODB/jars/protege-editor-owl.jar"/>
-	<classpathentry kind="lib" path="/home/prateksha/eclipse-workspace/SemWeb_OODB/jars/protege-editor-core.jar"/>
-	<classpathentry kind="lib" path="/home/prateksha/eclipse-workspace/SemWeb_OODB/jars/protege-common.jar"/>
-	<classpathentry kind="lib" path="/home/prateksha/eclipse-workspace/SemWeb_OODB/jars/owlapi-osgidistribution.jar"/>
-	<classpathentry kind="lib" path="/home/prateksha/eclipse-workspace/SemWeb_OODB/jars/objectdb.jar"/>
-	<classpathentry kind="lib" path="/home/prateksha/eclipse-workspace/SemWeb_OODB/jars/hppcrt-0.7.5.jar"/>
-	<classpathentry kind="lib" path="/home/prateksha/eclipse-workspace/SemWeb_OODB/jars/code-generation-2.0.0.jar"/>
-	<classpathentry kind="lib" path="/home/prateksha/eclipse-workspace/SemWeb_OODB/jars/caffeine-2.1.0.jar"/>
+	<classpathentry kind="lib" path="jars/caffeine-2.1.0.jar"/>
+	<classpathentry kind="lib" path="jars/code-generation-2.0.0.jar"/>
+	<classpathentry kind="lib" path="jars/hppcrt-0.7.5.jar"/>
+	<classpathentry kind="lib" path="jars/objectdb.jar"/>
+	<classpathentry kind="lib" path="jars/owlapi-osgidistribution.jar"/>
+	<classpathentry kind="lib" path="jars/protege-common.jar"/>
+	<classpathentry kind="lib" path="jars/protege-editor-core.jar"/>
+	<classpathentry kind="lib" path="jars/protege-editor-owl.jar"/>
+	<classpathentry kind="lib" path="jars/slf4j-api.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

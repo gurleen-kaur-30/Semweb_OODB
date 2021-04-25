@@ -8,7 +8,9 @@ import org.protege.editor.owl.model.OWLModelManager;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -22,29 +24,19 @@ public class ForwardChaining {
 	 static OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
 	public static void main(String[] argv) {
 		try {
-		File file = new File("src/OWL_files/college.owl");  
-		OWLOntologyManager om = OWLManager.createOWLOntologyManager();
-		OWLOntology o = om.loadOntologyFromOntologyDocument(file);
-		Collection<OWLClass> owl_classes = o.getClassesInSignature();
-//		System.out.println(o.getIndividualsInSignature());
-		OWLReasoner reasoner = reasonerFactory.createReasoner(o);
-//		System.out.println(reasoner.getRootOntology().getAxioms());
-//		System.out.println(o.getDataPropertiesInSignature());
-//		System.out.println(o.getObjectPropertiesInSignature());
-		for(OWLObjectProperty op: o.getObjectPropertiesInSignature() ) {
-			System.out.println(o.getInverseObjectPropertyAxioms(op));
+			File file = new File("src/OWL_files/college.owl");  
+			OWLOntologyManager om = OWLManager.createOWLOntologyManager();
+			OWLOntology o = om.loadOntologyFromOntologyDocument(file);
+			Collection<OWLObjectProperty> owl_obj_props = o.getObjectPropertiesInSignature();
+			OWLReasoner reasoner = reasonerFactory.createReasoner(o);
+		
+			for(OWLObjectProperty op: owl_obj_props) {
+				System.out.println("-------------");
+				System.out.println(o.getInverseObjectPropertyAxioms(op));
+				System.out.println(o.getObjectPropertyDomainAxioms(op));
+				System.out.println(o.getObjectPropertyRangeAxioms(op));
 //			Node<OWLObjectPropertyExpression> iop = reasoner.getInverseObjectProperties(op);
-		}
-		// reasoner.getRootOntology().getInverseFunctionalObjectPropertyAxioms(null);
-//		 for(OWLClass oc: owl_classes) {
-//            NodeSet<OWLNamedIndividual> instances = reasoner.getInstances(oc, true);
-//            System.out.println("The Individuals of my class : " + oc.getIRI());
-//        
-//            for (OWLNamedIndividual i : instances.getFlattened()) {
-//            	System.out.println(i.getDataPropertiesInSignature());
-//            	o.getObjectPropertiesInSignature();
-//            }
-//		 }
+			}
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}

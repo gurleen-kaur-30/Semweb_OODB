@@ -85,6 +85,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
     public void addHasRollNumber(Integer newHasRollNumber) {
 	    getDelegate().addPropertyValue(getOwlIndividual(), Vocabulary.DATA_PROPERTY_HASROLLNUMBER, newHasRollNumber);
+	    HasRollNumber=getHasRollNumber();
     }
 
     public void removeHasRollNumber(Integer oldHasRollNumber) {

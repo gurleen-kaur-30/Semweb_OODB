@@ -45,7 +45,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
     }
 
 
-
+    public String getName() {
+    	return name;
+    }
 
 
     /* ***************************************************

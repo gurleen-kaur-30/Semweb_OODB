@@ -7,6 +7,7 @@ import java.net.URI;
 import java.util.Collection;
 
 import javax.jdo.annotations.Embedded;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -40,11 +41,37 @@ import org.semanticweb.owlapi.model.OWLOntology;
     public DefaultCourse(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
 		 name = iri.toString();
+		 TaughtBy  = null;
 	
     }
 
+    public String getName() {
+    	return name;
+    }
 
+    public Collection<? extends Professor> getTaughtBy() {
+        return getDelegate().getPropertyValues(getOwlIndividual(),
+                                               Vocabulary.OBJECT_PROPERTY_TAUGHTBY,
+                                               DefaultProfessor.class);
+    }
 
+    public boolean hasTaughtBy() {
+	   return !getTaughtBy().isEmpty();
+    }
+
+    public void addTaughtBy(Professor newTaughtBy) {
+        getDelegate().addPropertyValue(getOwlIndividual(),
+                                       Vocabulary.OBJECT_PROPERTY_TAUGHTBY,
+                                       newTaughtBy);
+        TaughtBy = getTaughtBy();
+        System.out.println("Added prof: "+ TaughtBy);
+    }
+
+    public void removeTaughtBy(Professor oldTaughtBy) {
+        getDelegate().removePropertyValue(getOwlIndividual(),
+                                          Vocabulary.OBJECT_PROPERTY_TAUGHTBY,
+                                          oldTaughtBy);
+    }
 
 
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -37,17 +38,17 @@ public class Main {
 			
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory(db_path);
 			EntityManager em = emf.createEntityManager();
-			
+//			
 			em.getTransaction().begin();
 			CollegeProtege root = new CollegeProtege(o);
-			System.out.println(o.getOntologyID().getOntologyIRI());
+//			System.out.println(o.getOntologyID().getOntologyIRI());
 			Class root_class = CollegeProtege.class;
 	        Method[] methods = root_class.getMethods();
 	        
 	        for (int i = 0; i < methods.length; i++) {
 	            String methodName = methods[i].getName();
 	            if (methodName.length()>=6 && "getAll".equals(methodName.substring(0,6))) {
-	            	System.out.println("Printing for "+methodName);
+//	            	System.out.println("Printing for "+methodName);
 	                Object returnVal = methods[i].invoke(root);
 	                Collection<Object> returnCol = (Collection<Object>) returnVal;
 	                if (returnVal instanceof Collection<?>) {
@@ -56,7 +57,7 @@ public class Main {
 	            }
 	        }
 	        em.getTransaction().commit();
-//	        em.flush();
+	        em.flush();
 	        
 //	        em.getTransaction().begin();
 	        Collection<OWLObjectProperty> owl_obj_props = o.getObjectPropertiesInSignature();
@@ -78,32 +79,51 @@ public class Main {
 					String target_property = target_property_iri.substring(target_property_iri.indexOf("#")+"#".length(),target_property_iri.length()-1);
 					target_property = target_property.substring(0, 1).toUpperCase() + target_property.substring(1);
 					
-					System.out.println(domain_iri);
-					System.out.println(range_iri);
-					System.out.println(source_property_iri);
-					System.out.println(target_property_iri);
+//					System.out.println(domain_iri);
+//					System.out.println(range_iri);
+//					System.out.println(source_property_iri);
+//					System.out.println(target_property_iri);
 					
 					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
 
 					em.getTransaction().begin();
 					Class c = Class.forName("ProtegeGenCode.CollegeProtege.impl.Default"+domain);
 					TypedQuery<DefaultProfessor> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", c);
-					List<DefaultProfessor> results = retrieve.getResultList();
-				    for (DefaultProfessor p : results) {
-				    	System.out.println("Before addition "+p.getTeaches());
-				    	Collection<? extends Course> t = p.getTeaches();
+					for(DefaultProfessor p: retrieve.getResultList()) {
+					    DefaultProfessor p1 = em.find(DefaultProfessor.class, p.getName());
+
+						Collection<? extends Course> t = p.getTeaches();
 				    	Collection<DefaultCourse> t_new = (Collection<DefaultCourse>) t;
 				    	for(DefaultCourse cour: t_new) {
-//				    		em.getTransaction().begin();
-				    		System.out.println("Course before: "+cour);
-				    		cour.addTaughtBy(p);
-//				    		em.getTransaction().commit();
-				    		System.out.println("Course after: "+cour);
-//				    		em.flush();
+				    		DefaultCourse c1 = em.find(DefaultCourse.class, cour.getName());
+							c1.setTaughtBy(p1);
 				    	}
-				    	System.out.println("After addition "+p.getTeaches());
-				    }
-				    em.getTransaction().commit();
+//						DefaultCourse c = em.find(DefaultCourse.class, )
+					}
+
+//					List<DefaultProfessor> results = retrieve.getResultList();
+//				    for (DefaultProfessor p : results) {
+////				    	System.out.println("Before addition "+p.getTeaches());
+//				    	Collection<? extends Course> t = p.getTeaches();
+//				    	Collection<DefaultCourse> t_new = (Collection<DefaultCourse>) t;
+//				    	for(DefaultCourse cour: t_new) {
+////				    		em.getTransaction().begin();
+//				    		cour.setTaughtBy(p);
+////				    	    Query query = em.createQuery("UPDATE DefaultCourse SET TaughtBy = p where name = cour.getName()");
+////				    		em.getTransaction().commit();
+////				    		System.out.println("Course after: "+cour);
+////				    		em.flush();
+//				    	}
+////				    	System.out.println("After addition "+p.getTeaches());
+//				    }
+				    
+//				    DefaultProfessor p = em.find(DefaultProfessor.class, "http://www.semanticweb.org/prateksha/ontologies/2021/1/college#Murali");
+//				    System.out.println(p.getName());
+//					DefaultCourse c1 = em.find(DefaultCourse.class, "http://www.semanticweb.org/prateksha/ontologies/2021/1/college#DSA");
+//				    System.out.println(c1.getName());
+//					c1.setTaughtBy(p);
+					em.getTransaction().commit();
+					
 				} 
 			}	    
 //			em.getTransaction().commit();

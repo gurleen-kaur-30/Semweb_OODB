@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.jdo.annotations.Embedded;
 import javax.persistence.CascadeType;
@@ -41,11 +42,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
     public DefaultCourse(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
+        System.out.println("called");
 		 name = iri.toString();
 		 TaughtBy  = new HashSet<DefaultProfessor>();
 //		 Collection<String> s = new HashSet<String>();
 //		 TaughtBy = getTaughtBy();
-		 System.out.println("Constructor: taughtby: "+TaughtBy);
 	
     }
 
@@ -62,12 +63,18 @@ import org.semanticweb.owlapi.model.OWLOntology;
     public boolean hasTaughtBy() {
 	   return !getTaughtBy().isEmpty();
     }
+    
+    public void setTaughtBy(Professor p) {
+    	HashSet<DefaultProfessor> p1  = new HashSet<DefaultProfessor>();
+    	p1.add((DefaultProfessor) p);
+    	this.TaughtBy = p1;
+    }
 
     public void addTaughtBy(Professor newTaughtBy) {
         getDelegate().addPropertyValue(getOwlIndividual(),
                                        Vocabulary.OBJECT_PROPERTY_TAUGHTBY,
                                        newTaughtBy);
-        TaughtBy = getTaughtBy();
+//        TaughtBy = getTaughtBy();
         System.out.println("Added prof: "+ TaughtBy);
     }
 

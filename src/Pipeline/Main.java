@@ -85,6 +85,7 @@ public class Main {
 					
 					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
 
+					em.getTransaction().begin();
 					Class c = Class.forName("ProtegeGenCode.CollegeProtege.impl.Default"+domain);
 					TypedQuery<DefaultProfessor> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", c);
 					List<DefaultProfessor> results = retrieve.getResultList();
@@ -93,13 +94,16 @@ public class Main {
 				    	Collection<? extends Course> t = p.getTeaches();
 				    	Collection<DefaultCourse> t_new = (Collection<DefaultCourse>) t;
 				    	for(DefaultCourse cour: t_new) {
-				    		em.getTransaction().begin();
+//				    		em.getTransaction().begin();
+				    		System.out.println("Course before: "+cour);
 				    		cour.addTaughtBy(p);
-				    		em.getTransaction().commit();
+//				    		em.getTransaction().commit();
+				    		System.out.println("Course after: "+cour);
 //				    		em.flush();
 				    	}
 				    	System.out.println("After addition "+p.getTeaches());
 				    }
+				    em.getTransaction().commit();
 				} 
 			}	    
 //			em.getTransaction().commit();

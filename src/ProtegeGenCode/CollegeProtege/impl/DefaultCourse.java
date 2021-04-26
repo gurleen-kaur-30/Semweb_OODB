@@ -5,6 +5,7 @@ import ProtegeGenCode.CollegeProtege.*;
 import java.io.Serializable;
 import java.net.URI;
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.jdo.annotations.Embedded;
 import javax.persistence.CascadeType;
@@ -41,7 +42,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
     public DefaultCourse(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
 		 name = iri.toString();
-		 TaughtBy  = null;
+		 TaughtBy  = new HashSet<DefaultProfessor>();
+//		 Collection<String> s = new HashSet<String>();
+//		 TaughtBy = getTaughtBy();
+		 System.out.println("Constructor: taughtby: "+TaughtBy);
 	
     }
 

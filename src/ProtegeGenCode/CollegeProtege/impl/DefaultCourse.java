@@ -44,45 +44,19 @@ import org.semanticweb.owlapi.model.OWLOntology;
         super(inference, iri);
         System.out.println("called");
 		 name = iri.toString();
-		 TaughtBy  = new HashSet<DefaultProfessor>();
-//		 Collection<String> s = new HashSet<String>();
-//		 TaughtBy = getTaughtBy();
-	
+		 TaughtBy  = new HashSet<DefaultProfessor>();	
     }
 
     public String getName() {
     	return name;
     }
 
-    public Collection<? extends Professor> getTaughtBy() {
-        return getDelegate().getPropertyValues(getOwlIndividual(),
-                                               Vocabulary.OBJECT_PROPERTY_TAUGHTBY,
-                                               DefaultProfessor.class);
-    }
-
-    public boolean hasTaughtBy() {
-	   return !getTaughtBy().isEmpty();
-    }
     
-    public void setTaughtBy(Professor p) {
+    public void setTaughtBy(Object p) {
+    	DefaultProfessor p_new = (DefaultProfessor)p;
     	HashSet<DefaultProfessor> p1  = new HashSet<DefaultProfessor>();
-    	p1.add((DefaultProfessor) p);
+    	p1.add((DefaultProfessor) p_new);
     	this.TaughtBy = p1;
     }
-
-    public void addTaughtBy(Professor newTaughtBy) {
-        getDelegate().addPropertyValue(getOwlIndividual(),
-                                       Vocabulary.OBJECT_PROPERTY_TAUGHTBY,
-                                       newTaughtBy);
-//        TaughtBy = getTaughtBy();
-        System.out.println("Added prof: "+ TaughtBy);
-    }
-
-    public void removeTaughtBy(Professor oldTaughtBy) {
-        getDelegate().removePropertyValue(getOwlIndividual(),
-                                          Vocabulary.OBJECT_PROPERTY_TAUGHTBY,
-                                          oldTaughtBy);
-    }
-
 
 }

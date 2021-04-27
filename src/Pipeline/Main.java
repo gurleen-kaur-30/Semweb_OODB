@@ -1,6 +1,7 @@
 package Pipeline;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
@@ -27,7 +29,7 @@ import ProtegeGenCode.CollegeProtege.*;
 import ProtegeGenCode.CollegeProtege.impl.*;
 
 public class Main {
-	public static void main(String[] argv) {
+	public static void main(String[] argv) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
 		try {
 			String db_path = "jars/db/college_db.odb";
 			String owl_file_path = "src/OWL_files/college.owl";
@@ -38,10 +40,10 @@ public class Main {
 			
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory(db_path);
 			EntityManager em = emf.createEntityManager();
-//			
+			
 			em.getTransaction().begin();
+			
 			CollegeProtege root = new CollegeProtege(o);
-//			System.out.println(o.getOntologyID().getOntologyIRI());
 			Class root_class = CollegeProtege.class;
 	        Method[] methods = root_class.getMethods();
 	        
@@ -56,10 +58,9 @@ public class Main {
 	                }
 	            }
 	        }
-	        em.getTransaction().commit();
-	        em.flush();
 	        
-//	        em.getTransaction().begin();
+	        em.getTransaction().commit();
+	        
 	        Collection<OWLObjectProperty> owl_obj_props = o.getObjectPropertiesInSignature();
 			for(OWLObjectProperty op: owl_obj_props) {
 				Set<OWLInverseObjectPropertiesAxiom> set_inv = o.getInverseObjectPropertyAxioms(op);
@@ -79,59 +80,47 @@ public class Main {
 					String target_property = target_property_iri.substring(target_property_iri.indexOf("#")+"#".length(),target_property_iri.length()-1);
 					target_property = target_property.substring(0, 1).toUpperCase() + target_property.substring(1);
 					
+					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
+					
 //					System.out.println(domain_iri);
 //					System.out.println(range_iri);
 //					System.out.println(source_property_iri);
 //					System.out.println(target_property_iri);
-					
-					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
 
 					em.getTransaction().begin();
-					Class c = Class.forName("ProtegeGenCode.CollegeProtege.impl.Default"+domain);
-					TypedQuery<DefaultProfessor> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", c);
-					for(DefaultProfessor p: retrieve.getResultList()) {
-					    DefaultProfessor p1 = em.find(DefaultProfessor.class, p.getName());
+					
+					Class domain_class = Class.forName("ProtegeGenCode.CollegeProtege.impl.Default"+domain);
+					Class range_class = Class.forName("ProtegeGenCode.CollegeProtege.impl.Default"+range);
+//					TypedQuery<DefaultProfessor> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", c);
+					
+					List<Object> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", domain_class).getResultList();
+//					
+					for(Object p: retrieve) {
+						System.out.println(p.getClass());
+						System.out.println(DefaultProfessor.class);
+					    Object p1 = em.find(domain_class, domain_class.getDeclaredMethod("getName").invoke(p));
+					    System.out.println("Object: "+p1);
 
-						Collection<? extends Course> t = p.getTeaches();
-				    	Collection<DefaultCourse> t_new = (Collection<DefaultCourse>) t;
-				    	for(DefaultCourse cour: t_new) {
-				    		DefaultCourse c1 = em.find(DefaultCourse.class, cour.getName());
-							c1.setTaughtBy(p1);
+						Collection<? extends Object> t = DefaultProfessor.class.cast(p).getTeaches();
+				    	for(Object cour: t) {
+				    		Object c1 = em.find(range_class, range_class.getDeclaredMethod("getName").invoke(cour));
+				    		System.out.println("Objectt: "+c1);
+				    		Class[] cArg = new Class[1];
+							cArg[0] = Object.class;
+							range_class.getDeclaredMethod("setTaughtBy", cArg).invoke(c1, p1);
 				    	}
-//						DefaultCourse c = em.find(DefaultCourse.class, )
 					}
 
-//					List<DefaultProfessor> results = retrieve.getResultList();
-//				    for (DefaultProfessor p : results) {
-////				    	System.out.println("Before addition "+p.getTeaches());
-//				    	Collection<? extends Course> t = p.getTeaches();
-//				    	Collection<DefaultCourse> t_new = (Collection<DefaultCourse>) t;
-//				    	for(DefaultCourse cour: t_new) {
-////				    		em.getTransaction().begin();
-//				    		cour.setTaughtBy(p);
-////				    	    Query query = em.createQuery("UPDATE DefaultCourse SET TaughtBy = p where name = cour.getName()");
-////				    		em.getTransaction().commit();
-////				    		System.out.println("Course after: "+cour);
-////				    		em.flush();
-//				    	}
-////				    	System.out.println("After addition "+p.getTeaches());
-//				    }
-				    
-//				    DefaultProfessor p = em.find(DefaultProfessor.class, "http://www.semanticweb.org/prateksha/ontologies/2021/1/college#Murali");
-//				    System.out.println(p.getName());
-//					DefaultCourse c1 = em.find(DefaultCourse.class, "http://www.semanticweb.org/prateksha/ontologies/2021/1/college#DSA");
-//				    System.out.println(c1.getName());
-//					c1.setTaughtBy(p);
 					em.getTransaction().commit();
 					
 				} 
 			}	    
-//			em.getTransaction().commit();
+			
 			em.close();
 			emf.close();
 			
 		} catch(Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println("Exception: "+e.getMessage());
 		}
 	}
 

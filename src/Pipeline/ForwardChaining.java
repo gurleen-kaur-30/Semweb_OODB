@@ -1,5 +1,6 @@
 package Pipeline;
 
+import ProtegeGenCode.CollegeProtege.*;
 import ProtegeGenCode.CollegeProtege.impl.*;
 
 import java.io.File;
@@ -40,8 +41,9 @@ public class ForwardChaining {
 			OWLOntology o = om.loadOntologyFromOntologyDocument(file);
 	        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jars/db/college_db.odb");
 	        EntityManager em = emf.createEntityManager();
-	        em.getTransaction().begin();
+	        
 	        inverseOfProperty(o, em);
+	        
 	        em.close();
 	        emf.close();
 		} catch(Exception e) {
@@ -50,6 +52,7 @@ public class ForwardChaining {
 	}
 	
 	public static void inverseOfProperty(OWLOntology o, EntityManager em) {
+		try {
 			Collection<OWLObjectProperty> owl_obj_props = o.getObjectPropertiesInSignature();
 			for(OWLObjectProperty op: owl_obj_props) {
 				Set<OWLInverseObjectPropertiesAxiom> set_inv = o.getInverseObjectPropertyAxioms(op);
@@ -64,31 +67,39 @@ public class ForwardChaining {
 							Iterables.getOnlyElement(set_inv).getSecondProperty().toString() :
 								Iterables.getOnlyElement(set_inv).getFirstProperty().toString()	);
 					
+					String domain = domain_iri.substring(domain_iri.indexOf("#")+"#".length(), domain_iri.length()-1);
+					String range = range_iri.substring(range_iri.indexOf("#")+"#".length(), range_iri.length()-1);
+					String target_property = target_property_iri.substring(target_property_iri.indexOf("#")+"#".length(),target_property_iri.length()-1);
+					target_property = target_property.substring(0, 1).toUpperCase() + target_property.substring(1);
+					
+//					System.out.println(domain_iri);
+//					System.out.println(range_iri);
+//					System.out.println(source_property_iri);
+//					System.out.println(target_property_iri);
 					
 					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
-					TypedQuery<DefaultProfessor> retrieve = em.createQuery("SELECT o FROM ProtegeGenCode.CollegeProtege.impl.DefaultProfessor o", DefaultProfessor.class);
-					List<DefaultProfessor> results = retrieve.getResultList();
-			        for (DefaultProfessor p : results) {
-			            System.out.println(p);
-			        }
-//					
-//					TypedQuery<DefaultCourse> retreive = em.createQuery("select p FROM ProtegeGenCode.CollegeProtege.impl.DefaultProfessor c JOIN c.Teaches p", DefaultCourse.class);
-//					List<DefaultCourse> df = retreive.getResultList();
-//					System.out.println("1.-------------");
-//					for(DefaultCourse prof: df) {
-//						System.out.println("my"+prof.toString());
-//					}
-//					System.out.println("2.-------------");
+
+					em.getTransaction().begin();
+					Class c = Class.forName("ProtegeGenCode.CollegeProtege.impl.Default"+domain);
+					TypedQuery<DefaultProfessor> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", c);
+					for(DefaultProfessor p: retrieve.getResultList()) {
+					    DefaultProfessor p1 = em.find(DefaultProfessor.class, p.getName());
+
+						Collection<? extends Course> t = p.getTeaches();
+				    	Collection<DefaultCourse> t_new = (Collection<DefaultCourse>) t;
+				    	for(DefaultCourse cour: t_new) {
+				    		DefaultCourse c1 = em.find(DefaultCourse.class, cour.getName());
+							c1.setTaughtBy(p1);
+				    	}
+//						DefaultCourse c = em.find(DefaultCourse.class, )
+					}
 					em.getTransaction().commit();
-//					System.out.println("-------------");
-					System.out.println(domain_iri);
-					System.out.println(range_iri);
-					System.out.println(source_property_iri);
-					System.out.println(target_property_iri);
-//					Query q1 = em.createQuery("");
-//			        System.out.println("Total Points: " + q1.getSingleResult());
 				}
 			}
+		}
+		catch(Exception e) {
+			System.out.println("Exception: "+e.getMessage());
+		}
 	}
 	
 	public static void transitivityProperty() {

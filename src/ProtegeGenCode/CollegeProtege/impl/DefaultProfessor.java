@@ -40,8 +40,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
     public DefaultProfessor(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
 		 name = iri.toString();
-	Teaches=getTeaches();
-	System.out.println("Constructor called for Professor");
+		 Teaches=getTeaches();
     }
 
 

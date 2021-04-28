@@ -80,10 +80,9 @@ public class Main {
 					String range = range_iri.substring(range_iri.indexOf("#")+"#".length(), range_iri.length()-1);
 					String target_property = target_property_iri.substring(target_property_iri.indexOf("#")+"#".length(),target_property_iri.length()-1);
 					target_property = target_property.substring(0, 1).toUpperCase() + target_property.substring(1);
-//					
-//					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
-//					ProcessBuilder pb = new ProcessBuilder("inverse.sh", range, domain, target_property);
-//					Process pr = pb.start();
+					
+					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
+
 //					System.out.println(domain + range + target_property);
 //					System.out.println(domain_iri);
 //					System.out.println(range_iri);

@@ -6,6 +6,7 @@ for c in $CLASSES_DIR/*
 do
     echo "Updating $c file "
     sed -i "s/public class/@Entity\n public class/g" "$c"
+
     l="`grep 'public class' "$c"`"
     l_1="`echo "$l" | rev | cut -c 2- | rev`"
     l_2="${l_1}, Serializable {"
@@ -13,14 +14,12 @@ do
     name_var="${id_var}\n\t @Id private String name;"
 
     func="`grep "get.*{$" "$c"`" 
-    # echo "$func"
     func="${func//(/;}"
     func_trim="`echo "$func" | rev | cut -c 4- | rev `"
-    # echo "$func_trim"
+
     res=""
     v="public"
     for s in $func_trim;
-
     do 
         if [ "$s" = "$v" ];
         then

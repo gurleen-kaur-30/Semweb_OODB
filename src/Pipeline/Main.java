@@ -93,7 +93,6 @@ public class Main {
 					
 					Class domain_class = Class.forName("ProtegeGenCode.CollegeProtege.impl.Default"+domain);
 					Class range_class = Class.forName("ProtegeGenCode.CollegeProtege.impl.Default"+range);
-//					TypedQuery<DefaultProfessor> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", c);
 					
 					List<Object> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", domain_class).getResultList();
 //					
@@ -116,12 +115,43 @@ public class Main {
 					em.getTransaction().commit();
 					
 				}
+			}
+			for(OWLObjectProperty op: owl_obj_props) {
 				Set<OWLTransitiveObjectPropertyAxiom> set_trans = o.getTransitiveObjectPropertyAxioms(op);
-				System.out.println(set_trans);
-//				Set<OWLObjectPropertyDomainAxiom> set_inv_dom = o.get;
-//				Set<OWLObjectPropertyRangeAxiom> set_inv_range = o.getObjectPropertyRangeAxioms(op);
-				
-			}	    
+				Set<OWLObjectPropertyDomainAxiom> set_trans_dom = o.getObjectPropertyDomainAxioms(op);
+
+					
+				if(!set_trans.isEmpty() && !set_trans_dom.isEmpty()) {
+					System.out.println("-----------------");
+					System.out.println(set_trans);
+					System.out.println(set_trans_dom);
+					
+					String domain_iri = Iterables.getOnlyElement(set_trans_dom).getDomain().toString();
+					String property_iri = Iterables.getOnlyElement(set_trans_dom).getProperty().toString();
+					
+					String domain = domain_iri.substring(domain_iri.indexOf("#")+"#".length(), domain_iri.length()-1);
+					String property = property_iri.substring(property_iri.indexOf("#")+"#".length(),property_iri.length()-1);
+					property = property.substring(0, 1).toUpperCase() + property.substring(1);
+					
+					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
+
+					em.getTransaction().begin();
+					
+					Class domain_class = Class.forName("ProtegeGenCode.CollegeProtege.impl.Default"+domain);
+					
+					List<Object> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", domain_class).getResultList();					
+					
+					System.out.println(domain_iri);
+					System.out.println(domain);
+					System.out.println(property_iri);
+					System.out.println(property);
+					System.out.println("-----------------");
+					
+					em.getTransaction().commit();
+						
+				}
+			}
+					    
 			em.close();
 			emf.close();
 			

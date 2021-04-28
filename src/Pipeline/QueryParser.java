@@ -81,7 +81,7 @@ public class QueryParser {
     }
 
     public static void main(String[] argv) {
-		String s = convertQuery("PREFIX foo: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#iMTech> SELECT ?subject ?object WHERE { ?subject foo:Id ?object }");
+		String s = convertQuery("PREFIX foo: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#iMTech> SELECT ?subject ?object WHERE { ?subject foo:Id ?object .}");
 		
         System.out.println(s);
 	}

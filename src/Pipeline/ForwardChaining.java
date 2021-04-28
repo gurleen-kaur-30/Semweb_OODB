@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
 import com.google.common.collect.Iterables;
@@ -36,13 +37,14 @@ import com.google.common.collect.Iterables;
 public class ForwardChaining {
 	public static void main(String[] argv) {
 		try {
-			File file = new File("src/OWL_files/college.owl");  
+			File file = new File("src/OWL_files/pizza.owl");  
 			OWLOntologyManager om = OWLManager.createOWLOntologyManager();
 			OWLOntology o = om.loadOntologyFromOntologyDocument(file);
 	        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jars/db/college_db.odb");
 	        EntityManager em = emf.createEntityManager();
 	        
-	        inverseOfProperty(o, em);
+//	        inverseOfProperty(o, em);
+	        transitivityProperty(o, em);
 	        
 	        em.close();
 	        emf.close();
@@ -102,7 +104,45 @@ public class ForwardChaining {
 		}
 	}
 	
-	public static void transitivityProperty() {
+	public static void transitivityProperty(OWLOntology o, EntityManager em) {
+		try {
+			Collection<OWLObjectProperty> owl_obj_props = o.getObjectPropertiesInSignature();
+			for(OWLObjectProperty op: owl_obj_props) {
+				Set<OWLTransitiveObjectPropertyAxiom> set_trans = o.getTransitiveObjectPropertyAxioms(op);
+				Set<OWLObjectPropertyDomainAxiom> set_trans_dom = o.getObjectPropertyDomainAxioms(op);
+//				Set<OWLObjectPropertyRangeAxiom> set_trans_range = o.getObjectPropertyRangeAxioms(op);
+				
+//				System.out.println(set_trans_range);
+//				System.out.println("-----------------");
+//				System.out.println(set_trans);
+//				System.out.println(set_trans_dom);
+				
+				if(!set_trans.isEmpty() && !set_trans_dom.isEmpty()) {
+					System.out.println("-----------------");
+					System.out.println(set_trans);
+					System.out.println(set_trans_dom);
+					
+					String domain_iri = Iterables.getOnlyElement(set_trans_dom).getDomain().toString();
+					String property_iri = Iterables.getOnlyElement(set_trans_dom).getProperty().toString();
+					
+					String domain = domain_iri.substring(domain_iri.indexOf("#")+"#".length(), domain_iri.length()-1);
+					String property = property_iri.substring(property_iri.indexOf("#")+"#".length(),property_iri.length()-1);
+					property = property.substring(0, 1).toUpperCase() + property.substring(1);
+					
+					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
+					
+					System.out.println(domain_iri);
+					System.out.println(domain);
+					System.out.println(property_iri);
+					System.out.println(property);
+					System.out.println("-----------------");
+					
+				}
+			}
+		}
+		catch(Exception e) {
+			System.out.println("Exception: "+e.getMessage());
+		}
 		
 	}
 	

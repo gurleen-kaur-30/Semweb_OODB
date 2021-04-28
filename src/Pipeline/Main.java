@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 import com.google.common.collect.Iterables;
 
@@ -31,8 +32,8 @@ import ProtegeGenCode.CollegeProtege.impl.*;
 public class Main {
 	public static void main(String[] argv) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
 		try {
-			String db_path = "jars/db/college_db.odb";
-			String owl_file_path = "src/OWL_files/college.owl";
+			String db_path = "jars/db/pizza.odb";
+			String owl_file_path = "src/OWL_files/pizza.owl";
 			
 			File file = new File(owl_file_path);  
 			OWLOntologyManager om = OWLManager.createOWLOntologyManager();
@@ -113,9 +114,13 @@ public class Main {
 
 					em.getTransaction().commit();
 					
-				} 
+				}
+				Set<OWLTransitiveObjectPropertyAxiom> set_trans = o.getTransitiveObjectPropertyAxioms(op);
+				System.out.println(set_trans);
+//				Set<OWLObjectPropertyDomainAxiom> set_inv_dom = o.get;
+//				Set<OWLObjectPropertyRangeAxiom> set_inv_range = o.getObjectPropertyRangeAxioms(op);
+				
 			}	    
-			
 			em.close();
 			emf.close();
 			

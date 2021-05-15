@@ -1,6 +1,15 @@
-package Root1.impl;
+package ProtegeGenCode.Root1.impl;
 
-import Root1.*;
+import ProtegeGenCode.Root1.*;
+
+import java.util.HashSet;
+
+import java.io.Serializable;
+import javax.jdo.annotations.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 
 
 import java.net.URI;
@@ -21,10 +30,33 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Source Class: DefaultCheesyVegetableTopping <br>
  * @version generated on Wed Apr 28 11:02:02 IST 2021 by prateksha
  */
-public class DefaultCheesyVegetableTopping extends WrappedIndividualImpl implements CheesyVegetableTopping {
+@Entity
+ public class DefaultCheesyVegetableTopping extends WrappedIndividualImpl implements CheesyVegetableTopping , Serializable {
+	 private static final long serialVersionUID = 1L;
+	 @GeneratedValue
+	 private long id;
+	 @Id private String name;
+	
+private class DefaultCheesyVeableTopping extends WrappedIndividualImpl implements CheesyVeableToppin
+private DefaultCheesyVeableTopping;CodeGenerationInference inference, IRI iri
+@Embedded private Collection<? extends Food> HasIngredient;
 
     public DefaultCheesyVegetableTopping(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
+		 name = iri.toString();
+	ableToppinggetableTopping;
+	extendsextends;
+	WrappedIndividualImplWrappedIndividualImpl;
+	implementsimplements;
+	CheesyVeCheesyVegetableTopping;
+	ableTopping,;
+	,Serializable;
+	SerializablegetableTopping(CodeGenerationInference;
+	ableTopping(CodeGenerationInferenceinference,;
+	inference,IRI;
+	IRIiri);
+	iri)getHasIngredient();
+	
     }
 
 

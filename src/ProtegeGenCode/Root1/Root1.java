@@ -1,6 +1,6 @@
-package Root1;
+package ProtegeGenCode.Root1;
 
-import Root1.impl.*;
+import ProtegeGenCode.Root1.impl.*;
 
 
 import java.util.Collection;

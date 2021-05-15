@@ -1,6 +1,15 @@
-package Root1.impl;
+package ProtegeGenCode.Root1.impl;
 
-import Root1.*;
+import ProtegeGenCode.Root1.*;
+
+import java.util.HashSet;
+
+import java.io.Serializable;
+import javax.jdo.annotations.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 
 
 import java.net.URI;
@@ -21,10 +30,24 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Source Class: DefaultAmerican <br>
  * @version generated on Wed Apr 28 11:02:02 IST 2021 by prateksha
  */
-public class DefaultAmerican extends WrappedIndividualImpl implements American {
+@Entity
+ public class DefaultAmerican extends WrappedIndividualImpl implements American , Serializable {
+	 private static final long serialVersionUID = 1L;
+	 @GeneratedValue
+	 private long id;
+	 @Id private String name;
+	
+@Embedded private Collection<? extends PizzaBase> HasBase;
+@Embedded private Collection<? extends Food> HasIngredient;
+@Embedded private Collection<? extends PizzaTopping> HasTopping;
 
     public DefaultAmerican(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
+		 name = iri.toString();
+	HasBase=getHasBase();
+	HasIngredient=getHasIngredient();
+	HasTopping=getHasTopping();
+	
     }
 
 

@@ -1,4 +1,4 @@
-package Root1;
+package ProtegeGenCode.Root1;
 
 import java.net.URI;
 import java.util.Collection;

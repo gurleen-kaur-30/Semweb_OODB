@@ -1,6 +1,15 @@
-package Root1.impl;
+package ProtegeGenCode.Root1.impl;
 
-import Root1.*;
+import ProtegeGenCode.Root1.*;
+
+import java.util.HashSet;
+
+import java.io.Serializable;
+import javax.jdo.annotations.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 
 
 import java.net.URI;
@@ -21,10 +30,37 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Source Class: DefaultNonVegetarianPizza <br>
  * @version generated on Wed Apr 28 11:02:02 IST 2021 by prateksha
  */
-public class DefaultNonVegetarianPizza extends WrappedIndividualImpl implements NonVegetarianPizza {
+@Entity
+ public class DefaultNonVegetarianPizza extends WrappedIndividualImpl implements NonVegetarianPizza , Serializable {
+	 private static final long serialVersionUID = 1L;
+	 @GeneratedValue
+	 private long id;
+	 @Id private String name;
+	
+private class DefaultNonVearianPizza extends WrappedIndividualImpl implements NonVearianPizz
+private DefaultNonVearianPizza;CodeGenerationInference inference, IRI iri
+@Embedded private Collection<? extends PizzaBase> HasBase;
+@Embedded private Collection<? extends Food> HasIngredient;
+@Embedded private Collection<? extends PizzaTopping> HasTopping;
 
     public DefaultNonVegetarianPizza(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
+		 name = iri.toString();
+	arianPizzagetarianPizza;
+	extendsextends;
+	WrappedIndividualImplWrappedIndividualImpl;
+	implementsimplements;
+	NonVeNonVegetarianPizza;
+	arianPizza,;
+	,Serializable;
+	SerializablegetarianPizza(CodeGenerationInference;
+	arianPizza(CodeGenerationInferenceinference,;
+	inference,IRI;
+	IRIiri);
+	iri)getHasBase();
+	HasBase=getHasIngredient();
+	HasIngredient=getHasTopping();
+	
     }
 
 

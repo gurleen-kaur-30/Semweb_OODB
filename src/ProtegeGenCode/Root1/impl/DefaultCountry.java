@@ -1,6 +1,15 @@
-package Root1.impl;
+package ProtegeGenCode.Root1.impl;
 
-import Root1.*;
+import ProtegeGenCode.Root1.*;
+
+import java.util.HashSet;
+
+import java.io.Serializable;
+import javax.jdo.annotations.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 
 
 import java.net.URI;
@@ -21,10 +30,18 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Source Class: DefaultCountry <br>
  * @version generated on Wed Apr 28 11:02:02 IST 2021 by prateksha
  */
-public class DefaultCountry extends WrappedIndividualImpl implements Country {
+@Entity
+ public class DefaultCountry extends WrappedIndividualImpl implements Country , Serializable {
+	 private static final long serialVersionUID = 1L;
+	 @GeneratedValue
+	 private long id;
+	 @Id private String name;
+	
 
     public DefaultCountry(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
+		 name = iri.toString();
+	
     }
 
 

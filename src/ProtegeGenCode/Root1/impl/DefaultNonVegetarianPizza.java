@@ -37,8 +37,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 	 private long id;
 	 @Id private String name;
 	
-private class DefaultNonVearianPizza extends WrappedIndividualImpl implements NonVearianPizz
-private DefaultNonVearianPizza;CodeGenerationInference inference, IRI iri
 @Embedded private Collection<? extends PizzaBase> HasBase;
 @Embedded private Collection<? extends Food> HasIngredient;
 @Embedded private Collection<? extends PizzaTopping> HasTopping;
@@ -46,20 +44,9 @@ private DefaultNonVearianPizza;CodeGenerationInference inference, IRI iri
     public DefaultNonVegetarianPizza(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
 		 name = iri.toString();
-	arianPizzagetarianPizza;
-	extendsextends;
-	WrappedIndividualImplWrappedIndividualImpl;
-	implementsimplements;
-	NonVeNonVegetarianPizza;
-	arianPizza,;
-	,Serializable;
-	SerializablegetarianPizza(CodeGenerationInference;
-	arianPizza(CodeGenerationInferenceinference,;
-	inference,IRI;
-	IRIiri);
-	iri)getHasBase();
-	HasBase=getHasIngredient();
-	HasIngredient=getHasTopping();
+	HasBase=getHasBase();
+	HasIngredient=getHasIngredient();
+	HasTopping=getHasTopping();
 	
     }
 

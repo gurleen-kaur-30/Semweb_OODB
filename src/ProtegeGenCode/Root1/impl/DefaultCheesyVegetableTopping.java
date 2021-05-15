@@ -37,25 +37,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
 	 private long id;
 	 @Id private String name;
 	
-private class DefaultCheesyVeableTopping extends WrappedIndividualImpl implements CheesyVeableToppin
-private DefaultCheesyVeableTopping;CodeGenerationInference inference, IRI iri
 @Embedded private Collection<? extends Food> HasIngredient;
 
     public DefaultCheesyVegetableTopping(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
 		 name = iri.toString();
-	ableToppinggetableTopping;
-	extendsextends;
-	WrappedIndividualImplWrappedIndividualImpl;
-	implementsimplements;
-	CheesyVeCheesyVegetableTopping;
-	ableTopping,;
-	,Serializable;
-	SerializablegetableTopping(CodeGenerationInference;
-	ableTopping(CodeGenerationInferenceinference,;
-	inference,IRI;
-	IRIiri);
-	iri)getHasIngredient();
+		 HasIngredient=getHasIngredient();
 	
     }
 

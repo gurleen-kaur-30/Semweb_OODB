@@ -36,6 +36,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 	 @GeneratedValue
 	 private long id;
 	 @Id private String name;
+	@Embedded private Collection<? extends People> HasChild;
+
 	
 @Embedded private Collection<? extends People> HasAncestor;
 @Embedded private Collection<? extends People> HasFather;
@@ -45,15 +47,24 @@ import org.semanticweb.owlapi.model.OWLOntology;
     public DefaultPeople(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
 		 name = iri.toString();
+		HasChild  = new HashSet<DefaultPeople>();
 	HasAncestor=getHasAncestor();
 	HasFather=getHasFather();
 	HasFriend=getHasFriend();
 	HasMother=getHasMother();
 	
+}
+	public void setHasChild(Object p) { 
+		DefaultPeople p_new = (DefaultPeople)p;
+		HashSet<DefaultPeople> p1  = new HashSet<DefaultPeople>();
+		p1.add((DefaultPeople) p_new);
+		this.HasChild = p1;
+}
+
+
+    public String getName() {
+    	return name;
     }
-
-
-
 
 
     /* ***************************************************

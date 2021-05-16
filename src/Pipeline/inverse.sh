@@ -1,5 +1,5 @@
 s="Default"$1".java"
-c=../ProtegeGenCode/CollegeProtege/impl/$s
+c=../ProtegeGenCode/Root2/impl/$s
 name_var="`grep 'name;' "$c" | head -1`"
 inverse_var="${name_var}\n\t@Embedded private Collection<? extends $2> $3;\n"
 sed -i "s/${name_var}/${inverse_var}/g" "$c"
@@ -12,7 +12,7 @@ l5="this.$3 = p1;\n}"
 func=${l1}${l2}${l3}${l4}${l5}
 
 cons_init="`grep 'name = iri.toString();' "$c"`"
-cons_new="${cons_init}\n\t\tTaughtBy  = new HashSet<Default$2>();"
+cons_new="${cons_init}\n\t\t$3  = new HashSet<Default$2>();"
 sed -i "0,/${cons_init}/{s/${cons_init}/${cons_new}/;}" "$c"
 
 

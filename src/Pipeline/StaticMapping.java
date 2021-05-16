@@ -44,8 +44,13 @@ public class StaticMapping {
 						String target_property = target_property_iri.substring(target_property_iri.indexOf("#")+"#".length(),target_property_iri.length()-1);
 						target_property = target_property.substring(0, 1).toUpperCase() + target_property.substring(1);
 						
-						ProcessBuilder inv_pb = new ProcessBuilder("inverse.sh", range, domain, target_property);
-						inv_pb.start();
+						String cmd = "bash inverse.sh " + range.substring(0, 1).toUpperCase() + range.substring(1) + " " + domain.substring(0, 1).toUpperCase() + domain.substring(1) + " " + target_property;
+//					    ProcessBuilder inv_pb = new ProcessBuilder();
+//					    inv_pb.command("bash inverse.sh", range, domain, target_property);
+//						ProcessBuilder inv_pb = new ProcessBuilder(cmd.split(" "));
+//						inv_pb.start();
+						System.out.println(cmd.split(" "));
+						System.out.println("File updated!");
 					}
 				}
 		}

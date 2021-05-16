@@ -40,6 +40,9 @@ public class Main {
 			String db_path = "jars/db/people.odb";
 			String owl_file_path = "src/OWL_files/people.owl";
 			
+//			String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
+			String prefix = "ProtegeGenCode.Root2.impl.Default";
+			
 			File file = new File(owl_file_path);  
 			OWLOntologyManager om = OWLManager.createOWLOntologyManager();
 			OWLOntology o = om.loadOntologyFromOntologyDocument(file);
@@ -67,6 +70,8 @@ public class Main {
 	        
 	        em.getTransaction().commit();
 	        
+	        System.out.println("----------------------Persisting complete----------------------");
+	        
 	        Collection<OWLObjectProperty> owl_obj_props = o.getObjectPropertiesInSignature();
 			for(OWLObjectProperty op: owl_obj_props) {
 				Set<OWLInverseObjectPropertiesAxiom> set_inv = o.getInverseObjectPropertyAxioms(op);
@@ -84,37 +89,41 @@ public class Main {
 					String domain = domain_iri.substring(domain_iri.indexOf("#")+"#".length(), domain_iri.length()-1);
 					String range = range_iri.substring(range_iri.indexOf("#")+"#".length(), range_iri.length()-1);
 					String target_property = target_property_iri.substring(target_property_iri.indexOf("#")+"#".length(),target_property_iri.length()-1);
+					
+					domain = domain.substring(0, 1).toUpperCase() + domain.substring(1);
+					range = range.substring(0, 1).toUpperCase() + range.substring(1);
 					target_property = target_property.substring(0, 1).toUpperCase() + target_property.substring(1);
 					
-					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
-
-
 					em.getTransaction().begin();
+//					System.out.println("Query: "+ "SELECT o FROM "+prefix+domain+" o");
+					Class domain_class = Class.forName(prefix+domain);
+					Class range_class = Class.forName(prefix+range);
 					
-					Class domain_class = Class.forName("ProtegeGenCode.CollegeProtege.impl.Default"+domain);
-					Class range_class = Class.forName("ProtegeGenCode.CollegeProtege.impl.Default"+range);
 					
 					List<Object> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", domain_class).getResultList();
 //					
 					for(Object p: retrieve) {
-//						System.out.println(p.getClass());
+						System.out.println(p.getClass());
 //						System.out.println(DefaultProfessor.class);
 					    Object p1 = em.find(domain_class, domain_class.getDeclaredMethod("getName").invoke(p));
 //					    System.out.println("Object: "+p1);
 
-						Collection<? extends Object> t = DefaultProfessor.class.cast(p).getTeaches();
+//						Collection<? extends Object> t = DefaultProfessor.class.cast(p).getTeaches();
+					    Collection<? extends Object> t = DefaultPeople.class.cast(p).getHasFather();
 				    	for(Object cour: t) {
 				    		Object c1 = em.find(range_class, range_class.getDeclaredMethod("getName").invoke(cour));
 //				    		System.out.println("Objectt: "+c1);
 				    		Class[] cArg = new Class[1];
 							cArg[0] = Object.class;
-							range_class.getDeclaredMethod("setTaughtBy", cArg).invoke(c1, p1);
+//							range_class.getDeclaredMethod("setTaughtBy", cArg).invoke(c1, p1);
+							range_class.getDeclaredMethod("setHasChild", cArg).invoke(c1, p1);
 				    	}
 					}
 					em.getTransaction().commit();
 					
 				}
 			}
+			System.out.println("---------Inverse updates complete-------------------------------------");
 			for(OWLObjectProperty op: owl_obj_props) {
 				Set<OWLTransitiveObjectPropertyAxiom> set_trans = o.getTransitiveObjectPropertyAxioms(op);
 				Set<OWLObjectPropertyDomainAxiom> set_trans_dom = o.getObjectPropertyDomainAxioms(op);
@@ -132,11 +141,11 @@ public class Main {
 					String property = property_iri.substring(property_iri.indexOf("#")+"#".length(),property_iri.length()-1);
 					property = property.substring(0, 1).toUpperCase() + property.substring(1);
 					
-					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
+//					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
 
 					em.getTransaction().begin();
 					
-					Class domain_class = Class.forName("ProtegeGenCode.CollegeProtege.impl.Default"+domain);
+					Class domain_class = Class.forName(prefix+domain);
 					
 					List<Object> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", domain_class).getResultList();					
 					

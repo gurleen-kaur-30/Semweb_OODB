@@ -1,0 +1,62 @@
+Query 1: Simple SELECT query to retreive all instance names of a class
+
+SPARQL:
+
+PREFIX foo: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#iMTech>
+SELECT ?subject WHERE {?subject rdf:type foo:}
+
+JPQL:
+
+SELECT s.name FROM ProtegeGenCode.CollegeProtege.impl.DefaultIMTech s
+
+Query 2: Query to retreive instances of a class along with a specific data property
+
+SPARQL:
+
+PREFIX foo: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#>
+PREFIX foo1: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#iMTech>
+
+SELECT  ?subject  ?object
+WHERE{ 
+	?subject foo:hasRollNumber ?object . 
+	?subject rdf:type foo1: . 
+	}
+
+JPQL:
+
+SELECT i.name, s  FROM  ProtegeGenCode.CollegeProtege.impl.DefaultIMTech i JOIN i.HasRollNumber s
+
+Query 3: Query to retreive instances of a class along with a specific object property
+
+SPARQL:
+
+PREFIX foo: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#>
+PREFIX foo1: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#Professor>
+
+SELECT  ?subject  ?object
+WHERE{ 
+	?subject foo:teaches ?object . 
+	?subject rdf:type foo1: . 
+	}
+
+JPQL:
+
+SELECT i.name, s  FROM  ProtegeGenCode.CollegeProtege.impl.DefaultProfessor i JOIN i.Teaches s
+
+Query 4: Query to apply filter on a data property
+
+SPARQL: 
+
+PREFIX foo: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#>
+PREFIX foo1: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#iMTech>
+
+SELECT  ?subject  ?object
+WHERE{ 
+	?subject foo:hasDebt ?object . FILTER (?object < 3000)
+	?subject rdf:type foo1: . 
+	}
+
+JPQL:
+
+SELECT i.name, s  FROM  ProtegeGenCode.CollegeProtege.impl.DefaultIMTech i JOIN i.HasDebt s WHERE s<3000
+

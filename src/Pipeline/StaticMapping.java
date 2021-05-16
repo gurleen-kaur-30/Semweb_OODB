@@ -17,13 +17,13 @@ import com.google.common.collect.Iterables;
 public class StaticMapping {
 	public static void main(String[] argv) {
 		try {
-			File file = new File("src/OWL_files/pizza.owl");  
-			String project_name = "CollegeProtege";
+			File file = new File("src/OWL_files/people.owl");  
+			String project_name = "Root2";
 			OWLOntologyManager om = OWLManager.createOWLOntologyManager();
 			OWLOntology o = om.loadOntologyFromOntologyDocument(file);
 			
-			ProcessBuilder gen_pb = new ProcessBuilder("automation_script.sh", project_name);
-			gen_pb.start();
+//			ProcessBuilder gen_pb = new ProcessBuilder("automation_script.sh", project_name);
+//			gen_pb.start();
 			
 			Collection<OWLObjectProperty> owl_obj_props = o.getObjectPropertiesInSignature();
 			for(OWLObjectProperty op: owl_obj_props) {

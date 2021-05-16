@@ -6,6 +6,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.semanticweb.org/gurleen/ontologies/people">
+    <Prefix name="" IRI="http://www.semanticweb.org/gurleen/ontologies/people"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
@@ -158,10 +159,6 @@
         <NamedIndividual IRI="#gurleen"/>
         <NamedIndividual IRI="#prateksha"/>
     </ObjectPropertyAssertion>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasAncestor"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
     <InverseObjectProperties>
         <ObjectProperty IRI="#hasChild"/>
         <ObjectProperty IRI="#hasFather"/>
@@ -184,10 +181,6 @@
         <Class IRI="#people"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasChild"/>
-        <Class IRI="#people"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasFather"/>
         <Class IRI="#people"/>
     </ObjectPropertyDomain>
@@ -201,10 +194,6 @@
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasAncestor"/>
-        <Class IRI="#people"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasChild"/>
         <Class IRI="#people"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>

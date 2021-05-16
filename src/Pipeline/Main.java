@@ -29,11 +29,16 @@ import ProtegeGenCode.CollegeProtege.CollegeProtege;
 import ProtegeGenCode.CollegeProtege.*;
 import ProtegeGenCode.CollegeProtege.impl.*;
 
+import ProtegeGenCode.Root2.Root2;
+import ProtegeGenCode.Root2.*;
+import ProtegeGenCode.Root2.impl.*;
+
+
 public class Main {
 	public static void main(String[] argv) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
 		try {
-			String db_path = "jars/db/college_db.odb";
-			String owl_file_path = "src/OWL_files/college.owl";
+			String db_path = "jars/db/people.odb";
+			String owl_file_path = "src/OWL_files/people.owl";
 			
 			File file = new File(owl_file_path);  
 			OWLOntologyManager om = OWLManager.createOWLOntologyManager();
@@ -44,8 +49,8 @@ public class Main {
 			
 			em.getTransaction().begin();
 			
-			CollegeProtege root = new CollegeProtege(o);
-			Class root_class = CollegeProtege.class;
+			Root2 root = new Root2(o);
+			Class root_class = Root2.class;
 	        Method[] methods = root_class.getMethods();
 	        
 	        for (int i = 0; i < methods.length; i++) {

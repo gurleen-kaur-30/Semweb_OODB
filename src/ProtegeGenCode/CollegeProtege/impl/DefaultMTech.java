@@ -42,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 		 name = iri.toString();
 	HasDebt=getHasDebt();
 	HasRollNumber=getHasRollNumber();
-	System.out.println("Constructor called for MTech");
 	
     }
 

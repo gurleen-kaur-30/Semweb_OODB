@@ -32,8 +32,8 @@ import ProtegeGenCode.CollegeProtege.impl.*;
 public class Main {
 	public static void main(String[] argv) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
 		try {
-			String db_path = "jars/db/pizza.odb";
-			String owl_file_path = "src/OWL_files/pizza.owl";
+			String db_path = "jars/db/college_db.odb";
+			String owl_file_path = "src/OWL_files/college.owl";
 			
 			File file = new File(owl_file_path);  
 			OWLOntologyManager om = OWLManager.createOWLOntologyManager();
@@ -83,11 +83,6 @@ public class Main {
 					
 					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
 
-//					System.out.println(domain + range + target_property);
-//					System.out.println(domain_iri);
-//					System.out.println(range_iri);
-//					System.out.println(source_property_iri);
-//					System.out.println(target_property_iri);
 
 					em.getTransaction().begin();
 					
@@ -97,21 +92,20 @@ public class Main {
 					List<Object> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", domain_class).getResultList();
 //					
 					for(Object p: retrieve) {
-						System.out.println(p.getClass());
-						System.out.println(DefaultProfessor.class);
+//						System.out.println(p.getClass());
+//						System.out.println(DefaultProfessor.class);
 					    Object p1 = em.find(domain_class, domain_class.getDeclaredMethod("getName").invoke(p));
-					    System.out.println("Object: "+p1);
+//					    System.out.println("Object: "+p1);
 
 						Collection<? extends Object> t = DefaultProfessor.class.cast(p).getTeaches();
 				    	for(Object cour: t) {
 				    		Object c1 = em.find(range_class, range_class.getDeclaredMethod("getName").invoke(cour));
-				    		System.out.println("Objectt: "+c1);
+//				    		System.out.println("Objectt: "+c1);
 				    		Class[] cArg = new Class[1];
 							cArg[0] = Object.class;
 							range_class.getDeclaredMethod("setTaughtBy", cArg).invoke(c1, p1);
 				    	}
 					}
-
 					em.getTransaction().commit();
 					
 				}

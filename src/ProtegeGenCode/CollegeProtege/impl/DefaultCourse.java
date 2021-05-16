@@ -42,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
     public DefaultCourse(CodeGenerationInference inference, IRI iri) {
         super(inference, iri);
-        System.out.println("called");
 		 name = iri.toString();
 		 TaughtBy  = new HashSet<DefaultProfessor>();	
     }

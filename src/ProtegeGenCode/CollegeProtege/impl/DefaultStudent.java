@@ -44,9 +44,7 @@ import com.objectdb.o.CLN.r;
         super(inference, iri);
 		 name = iri.toString();
 	HasDebt=getHasDebt();
-	HasRollNumber=getHasRollNumber();
-	System.out.println("Constructor called for Student");
-	
+	HasRollNumber=getHasRollNumber();	
     }
 
 

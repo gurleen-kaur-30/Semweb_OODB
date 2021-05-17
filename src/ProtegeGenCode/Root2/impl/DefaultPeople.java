@@ -179,7 +179,7 @@ public String getName() {
     
     public void setHasAncestor(Object p) {
     	DefaultPeople p_new = (DefaultPeople)p;
-    	HashSet<DefaultPeople> p1  = new HashSet<DefaultPeople>();
+    	HashSet<DefaultPeople> p1  = (HashSet<DefaultPeople>) this.HasAncestor;
     	p1.add((DefaultPeople) p_new);
     	this.HasAncestor = p1;
     }

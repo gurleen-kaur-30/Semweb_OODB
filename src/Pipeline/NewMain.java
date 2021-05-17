@@ -71,6 +71,7 @@ public class NewMain {
 			
 			emfs = transitiveProperty(o, owl_obj_props, prefix, em, emf, db_path);
 			symmetricProperty(o, owl_obj_props, prefix, (EntityManager)(emfs.get(1)), (EntityManagerFactory)(emfs.get(0)), db_path);
+//			symmetricProperty(o, owl_obj_props, prefix, em, emf, db_path);
 //			em.close();
 //			emf.close();
 			
@@ -87,7 +88,7 @@ public class NewMain {
 			
 //			CollegeProtege root = new CollegeProtege(o);
 //			Class root_class = CollegeProtege.class;
-			
+//			
 			em.getTransaction().begin();
 	        Method[] methods = root_class.getMethods();
 	        
@@ -127,10 +128,12 @@ public class NewMain {
 					
 					String domain = domain_iri.substring(domain_iri.indexOf("#")+"#".length(), domain_iri.length()-1);
 					String range = range_iri.substring(range_iri.indexOf("#")+"#".length(), range_iri.length()-1);
+					String source_property = source_property_iri.substring(source_property_iri.indexOf("#")+"#".length(),source_property_iri.length()-1);
 					String target_property = target_property_iri.substring(target_property_iri.indexOf("#")+"#".length(),target_property_iri.length()-1);
 					
 					domain = domain.substring(0, 1).toUpperCase() + domain.substring(1);
 					range = range.substring(0, 1).toUpperCase() + range.substring(1);
+					source_property = source_property.substring(0, 1).toUpperCase() + source_property.substring(1);
 					target_property = target_property.substring(0, 1).toUpperCase() + target_property.substring(1);
 					
 					em.getTransaction().begin();
@@ -138,23 +141,17 @@ public class NewMain {
 					Class range_class = Class.forName(prefix+range);
 			
 					
-					System.out.println("jgdasgdjasj");
 					List<Object> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", domain_class).getResultList();
-					System.out.println(retrieve);
 					
 					for(Object p: retrieve) {
 					    Object p1 = em.find(domain_class, domain_class.getDeclaredMethod("getName").invoke(p));
 	
-						Collection<? extends Object> t = DefaultProfessor.class.cast(p).getTeaches();
-	//				    Collection<? extends Object> t = DefaultPeople.class.cast(p).getHasFather();
+						Collection<? extends Object> t = (Collection<? extends Object>) domain_class.getDeclaredMethod("get"+source_property).invoke(p);
 				    	for(Object cour: t) {
 				    		Object c1 = em.find(range_class, range_class.getDeclaredMethod("getName").invoke(cour));
-				    		System.out.println("Modifying person: "+c1+" using details from "+p1);
 				    		Class[] cArg = new Class[1];
 							cArg[0] = Object.class;
-							range_class.getDeclaredMethod("setTaughtBy", cArg).invoke(c1, p1);
-	//						range_class.getDeclaredMethod("setHasChild", cArg).invoke(c1, p1);
-	
+							range_class.getDeclaredMethod("set"+target_property, cArg).invoke(c1, p1);	
 				    	}
 					}
 					em.getTransaction().commit();	
@@ -190,21 +187,18 @@ public class NewMain {
 					domain = domain.substring(0, 1).toUpperCase() + domain.substring(1);
 										
 					Class domain_class = Class.forName(prefix+domain);
+					
 					List<Object> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", domain_class).getResultList();	
 					Map<Object, HashSet<Object>> relationshipMap = new HashMap<>();
 					for(Object retObject : retrieve) {
-						HashSet<Object> ancestors = (HashSet<Object>) ((DefaultPeople) retObject).getHasAncestor();
+						HashSet<Object> ancestors = (HashSet<Object>) domain_class.getDeclaredMethod("get"+property).invoke(retObject);
 						relationshipMap.put(retObject, ancestors);
-						for(Object ancestor : ancestors) {
-							System.out.println(((DefaultPeople) retObject).getName() + " yoooo " + ((DefaultPeople) ancestor).getName());
-						}
 					}
 					
 					for (Map.Entry<Object,HashSet<Object>> relation : relationshipMap.entrySet()) {
 						Object object1 = relation.getKey();
 						HashSet<Object> objects = relation.getValue();
 						for(Object obj : objects) {
-							System.out.println(((DefaultPeople) obj).getName());
 							if(relationshipMap.containsKey(obj)) {
 							for(Object obj2 : relationshipMap.get(obj)) {
 								if(obj2 != null) {
@@ -216,10 +210,9 @@ public class NewMain {
 					}
 
 					em.getTransaction().begin();
-			    	int deletedCount = em.createQuery("DELETE FROM DefaultPeople").executeUpdate();
-			    	System.out.println("deletes "+deletedCount);
-//			    	em.remove(em.contains(p1) ? p1 : em.merge(p1));
+			    	int deletedCount = em.createQuery("DELETE FROM Default"+domain).executeUpdate();
 			    	em.getTransaction().commit();
+			    	
 			    	em.close();
 			    	emf.close();
 			    	
@@ -229,8 +222,9 @@ public class NewMain {
 					for(Map.Entry<Object,HashSet<Object>> relation : relationshipMap.entrySet()) {
 						System.out.println("yo");
 						for(Object obj : relation.getValue()) {
-							System.out.println(((DefaultPeople) relation.getKey()).getName() + "yes man" +  ((DefaultPeople) obj).getName());
-							((DefaultPeople) relation.getKey()).setHasAncestor(obj);
+							Class[] cArg = new Class[1];
+							cArg[0] = Object.class;
+							domain_class.getDeclaredMethod("set"+property, cArg).invoke(relation.getKey(), obj);
 						}
 						em_new.persist(relation.getKey());
 					}
@@ -262,14 +256,9 @@ public class NewMain {
 				Set<OWLObjectPropertyDomainAxiom> set_symm_dom = o.getObjectPropertyDomainAxioms(op);
 					
 				if(!set_symm.isEmpty() && !set_symm_dom.isEmpty()) {
-					System.out.println("-----------------");
-					System.out.println(set_symm);
-					System.out.println(set_symm_dom);
 					
 					String domain_iri = Iterables.getOnlyElement(set_symm_dom).getDomain().toString();
 					String property_iri = Iterables.getOnlyElement(set_symm_dom).getProperty().toString();
-					System.out.println(domain_iri);
-					System.out.println(property_iri);
 					
 					String domain = domain_iri.substring(domain_iri.indexOf("#")+"#".length(), domain_iri.length()-1);
 					String property = property_iri.substring(property_iri.indexOf("#")+"#".length(),property_iri.length()-1);
@@ -280,16 +269,14 @@ public class NewMain {
 					List<Object> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", domain_class).getResultList();	
 					Map<Object, HashSet<Object>> relationshipMap = new HashMap<>();
 					for(Object retObject : retrieve) {
-						HashSet<Object> friends = (HashSet<Object>) ((DefaultPeople) retObject).getHasFriend();
+						HashSet<Object> friends = (HashSet<Object>) domain_class.getDeclaredMethod("get"+property).invoke(retObject);
 							relationshipMap.put(retObject, friends);	
 					}
 
 					for (Map.Entry<Object,HashSet<Object>> relation : relationshipMap.entrySet()) {
 						Object object1 = relation.getKey();
-						System.out.println("Main person: "+((DefaultPeople)object1).getName());
 						HashSet<Object> objects = relation.getValue();
 						for(Object obj : objects) {
-							System.out.println("Now considering obj: "+((DefaultPeople) obj).getName());
 							if (relationshipMap.containsKey(obj))
 							{
 								if(!relationshipMap.get(obj).contains(object1)) {
@@ -305,7 +292,7 @@ public class NewMain {
 					}
 					
 					em.getTransaction().begin();
-			    	int deletedCount = em.createQuery("DELETE FROM DefaultPeople").executeUpdate();
+			    	int deletedCount = em.createQuery("DELETE FROM Default"+domain).executeUpdate();
 			    	System.out.println("deletes "+deletedCount);
 			    	em.getTransaction().commit();
 			    	em.close();
@@ -317,17 +304,20 @@ public class NewMain {
 					em_new.getTransaction().begin();
 					for(Map.Entry<Object,HashSet<Object>> relation : relationshipMap.entrySet()) {
 						for(Object obj : relation.getValue()) {
-							((DefaultPeople) relation.getKey()).setHasFriend(obj);
+							Class[] cArg = new Class[1];
+							cArg[0] = Object.class;
+							domain_class.getDeclaredMethod("set"+property, cArg).invoke(relation.getKey(), obj);
 						}
 						em_new.persist(relation.getKey());
 					}
-					System.out.println("-----------------");
+					
 					
 					em_new.getTransaction().commit();	
 					em_new.close();
 					emf_new.close();
 				}
 			}
+			System.out.println("---------Symmetric updates complete-------------------------------------");
 		}
 		catch(Exception e) {
 			System.out.println("Exception from symmetric: "+e.getMessage());

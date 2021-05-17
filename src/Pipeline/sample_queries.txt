@@ -7,7 +7,7 @@ SELECT ?subject WHERE {?subject rdf:type foo:}
 
 JPQL:
 
-SELECT s.name FROM ProtegeGenCode.CollegeProtege.impl.DefaultIMTech s
+SELECT s.name FROM DefaultIMTech s
 
 Query 2: Query to retreive instances of a class along with a specific data property
 
@@ -24,7 +24,7 @@ WHERE{
 
 JPQL:
 
-SELECT i.name, s  FROM  ProtegeGenCode.CollegeProtege.impl.DefaultIMTech i JOIN i.HasRollNumber s
+SELECT i.name, s  FROM  DefaultIMTech i JOIN i.HasRollNumber s
 
 Query 3: Query to retreive instances of a class along with a specific object property
 
@@ -41,7 +41,7 @@ WHERE{
 
 JPQL:
 
-SELECT i.name, s  FROM  ProtegeGenCode.CollegeProtege.impl.DefaultProfessor i JOIN i.Teaches s
+SELECT i.name, s FROM DefaultProfessor i JOIN i.Teaches s
 
 Query 4: Query to apply filter on a data property
 
@@ -58,5 +58,5 @@ WHERE{
 
 JPQL:
 
-SELECT i.name, s  FROM  ProtegeGenCode.CollegeProtege.impl.DefaultIMTech i JOIN i.HasDebt s WHERE s<3000
+SELECT i.name, s FROM DefaultIMTech i JOIN i.HasDebt s WHERE s<3000
 

@@ -1,5 +1,6 @@
 package ProtegeGenCode.Root2.impl;
 
+import ProtegeGenCode.CollegeProtege.impl.DefaultProfessor;
 import ProtegeGenCode.Root2.*;
 
 import java.util.HashSet;
@@ -59,6 +60,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
 		HashSet<DefaultPeople> p1  = new HashSet<DefaultPeople>();
 		p1.add((DefaultPeople) p_new);
 		this.HasChild = p1;
+}
+	
+public String getName() {
+	return name;
 }
 
 
@@ -170,6 +175,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
         getDelegate().removePropertyValue(getOwlIndividual(),
                                           Vocabulary.OBJECT_PROPERTY_HASMOTHER,
                                           oldHasMother);
+    }
+    
+    public void setHasAncestor(Object p) {
+    	DefaultPeople p_new = (DefaultPeople)p;
+    	HashSet<DefaultPeople> p1  = new HashSet<DefaultPeople>();
+    	p1.add((DefaultPeople) p_new);
+    	this.HasAncestor = p1;
     }
 
 

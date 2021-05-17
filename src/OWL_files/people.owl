@@ -13,16 +13,7 @@
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
-        <Class IRI="#adults"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#old"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#people"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#young"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasAncestor"/>
@@ -66,52 +57,40 @@
     <Declaration>
         <NamedIndividual IRI="#prateksha"/>
     </Declaration>
-    <SubClassOf>
-        <Class IRI="#adults"/>
-        <Class IRI="#people"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#old"/>
-        <Class IRI="#people"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#young"/>
-        <Class IRI="#people"/>
-    </SubClassOf>
     <ClassAssertion>
-        <Class IRI="#young"/>
+        <Class IRI="#people"/>
         <NamedIndividual IRI="#Aaradhya_Bachchan"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#adults"/>
+        <Class IRI="#people"/>
         <NamedIndividual IRI="#Abhishek_Bachchan"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#adults"/>
+        <Class IRI="#people"/>
         <NamedIndividual IRI="#Aishwarya_Rai"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#old"/>
+        <Class IRI="#people"/>
         <NamedIndividual IRI="#Amitabh_Bachchan"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#old"/>
+        <Class IRI="#people"/>
         <NamedIndividual IRI="#Harivansh_Bachchan"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#young"/>
+        <Class IRI="#people"/>
         <NamedIndividual IRI="#gurleen"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#young"/>
+        <Class IRI="#people"/>
         <NamedIndividual IRI="#lakshay"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#young"/>
+        <Class IRI="#people"/>
         <NamedIndividual IRI="#mili"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#young"/>
+        <Class IRI="#people"/>
         <NamedIndividual IRI="#prateksha"/>
     </ClassAssertion>
     <ObjectPropertyAssertion>

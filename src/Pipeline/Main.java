@@ -140,6 +140,7 @@ public class Main {
 					String domain = domain_iri.substring(domain_iri.indexOf("#")+"#".length(), domain_iri.length()-1);
 					String property = property_iri.substring(property_iri.indexOf("#")+"#".length(),property_iri.length()-1);
 					property = property.substring(0, 1).toUpperCase() + property.substring(1);
+					domain = domain.substring(0, 1).toUpperCase() + domain.substring(1);
 					
 //					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
 

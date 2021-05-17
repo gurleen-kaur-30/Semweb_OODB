@@ -15,14 +15,23 @@ import ProtegeGenCode.CollegeProtege.impl.*;
 public class RunQuery {
 	public static void main(String[] args) {
 		try {
-		String db_path = "jars/db/college_db.odb";
-        String query = "SELECT i.name, s  FROM  ProtegeGenCode.CollegeProtege.impl.DefaultIMTech i JOIN i.HasDebt s";
-        int queryType = 3;
-        
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory(db_path);
-        EntityManager em = emf.createEntityManager();
-        
-        
+//		String db_path = "jars/db/college_db.odb";
+//        String query = "SELECT i.name, s  FROM  ProtegeGenCode.CollegeProtege.impl.DefaultIMTech i JOIN i.HasDebt s";
+//        int queryType = 3;
+//        
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory(db_path);
+//        EntityManager em = emf.createEntityManager();
+//
+//        runQuery(queryType, query, em);
+//        
+//		em.close();
+//		emf.close();
+		}
+		catch(Exception e) {
+			System.out.println("Caught exception: "+e.getMessage());
+		}
+	}
+	public static void runQuery(int queryType, String query, EntityManager em) {
         if(queryType == 1) {
         	System.out.println(em.createQuery(query).getResultList());
         }
@@ -35,12 +44,5 @@ public class RunQuery {
            	    System.out.println(ele[1]);
            	}
         }
-
-		em.close();
-		emf.close();
-		}
-		catch(Exception e) {
-			System.out.println("Caught exception: "+e.getMessage());
-		}
 	}
 }

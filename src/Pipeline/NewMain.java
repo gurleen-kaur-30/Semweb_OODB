@@ -43,14 +43,14 @@ import ProtegeGenCode.Root2.impl.*;
 public class NewMain {
 	public static void main(String[] argv) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
 		try {
-			String db_path = "jars/db/people.odb";
-			String owl_file_path = "src/OWL_files/people.owl";
-			String prefix = "ProtegeGenCode.Root2.impl.Default";
+//			String db_path = "jars/db/people.odb";
+//			String owl_file_path = "src/OWL_files/people.owl";
+//			String prefix = "ProtegeGenCode.Root2.impl.Default";
 
 			
-//			String db_path = "jars/db/college1.odb";
-//			String owl_file_path = "src/OWL_files/college.owl";
-//			String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
+			String db_path = "jars/db/college.odb";
+			String owl_file_path = "src/OWL_files/college.owl";
+			String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
 			
 			
 			File file = new File(owl_file_path);  
@@ -67,13 +67,14 @@ public class NewMain {
 			ArrayList<Object> emfs = new ArrayList<Object>();
 			
 			persistData(o, db_path, em);
-//			inverseProperty(o, owl_obj_props, prefix, em);
+			inverseProperty(o, owl_obj_props, prefix, em);
 			
-			emfs = transitiveProperty(o, owl_obj_props, prefix, em, emf, db_path);
-			symmetricProperty(o, owl_obj_props, prefix, (EntityManager)(emfs.get(1)), (EntityManagerFactory)(emfs.get(0)), db_path);
+//			emfs = transitiveProperty(o, owl_obj_props, prefix, em, emf, db_path);
+//			symmetricProperty(o, owl_obj_props, prefix, (EntityManager)(emfs.get(1)), (EntityManagerFactory)(emfs.get(0)), db_path);
 //			symmetricProperty(o, owl_obj_props, prefix, em, emf, db_path);
-//			em.close();
-//			emf.close();
+			
+			em.close();
+			emf.close();
 			
 		} catch(Exception e) {
 			System.out.println("Exception from main: "+e.getMessage());
@@ -83,11 +84,11 @@ public class NewMain {
 
 	public static void persistData(OWLOntology o, String db_path, EntityManager em) {
 		try {
-			Root2 root = new Root2(o);
-			Class root_class = Root2.class;
+//			Root2 root = new Root2(o);
+//			Class root_class = Root2.class;
 			
-//			CollegeProtege root = new CollegeProtege(o);
-//			Class root_class = CollegeProtege.class;
+			CollegeProtege root = new CollegeProtege(o);
+			Class root_class = CollegeProtege.class;
 //			
 			em.getTransaction().begin();
 	        Method[] methods = root_class.getMethods();
@@ -280,7 +281,7 @@ public class NewMain {
 							if (relationshipMap.containsKey(obj))
 							{
 								if(!relationshipMap.get(obj).contains(object1)) {
-								relationshipMap.get(obj).add(object1);
+									relationshipMap.get(obj).add(object1);
 								}
 							}
 							else {

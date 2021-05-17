@@ -147,8 +147,6 @@ public class Main {
 					property = property.substring(0, 1).toUpperCase() + property.substring(1);
 					domain = domain.substring(0, 1).toUpperCase() + domain.substring(1);
 					
-//					String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
-
 					em.getTransaction().begin();
 					
 					Class domain_class = Class.forName(prefix+domain);
@@ -160,7 +158,6 @@ public class Main {
 						for(Object ancestor : ancestors) {
 							System.out.println(((DefaultPeople) retObject).getName() + " yoooo " + ((DefaultPeople) ancestor).getName());
 						}
-
 					}
 					
 					

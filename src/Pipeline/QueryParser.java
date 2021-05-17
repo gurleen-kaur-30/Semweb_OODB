@@ -44,20 +44,17 @@ public class QueryParser {
         {
             String temp = res.get(i).split("<")[1];
             // System.out.println(res.get(i).split("<")[1]);
-            Pattern pattern1 = Pattern.compile("#(.*?)>");
+            Pattern pattern1 = Pattern.compile("\\#$");
 
-            // if(pattern1.matcher(temp).find())
-            // {
-                // System.out.println("heyy");
-                // String temp1 = pattern1.matcher(temp).group(1);
-                // System.out.println(temp1);
-            String temp1 = " ";
-
-            if(temp.split("college")[1].length() != 1)
-                temp1 = temp.split("college")[1].substring(1);
-
-            params.put(res.get(i).split("<")[0].replaceAll("\\s", ""),temp1);
-            // }
+            if(pattern1.matcher(temp).find())
+            {
+                // System.out.println(i);
+                continue;
+            }
+            else
+            {
+                params.put(res.get(i).split("<")[0].replaceAll("\\s", ""),temp.split("#")[1]);
+            }
             
         }
 
@@ -159,6 +156,7 @@ public class QueryParser {
         String jpqlSelect = "";
         String jpqlFrom = "ProtegeGenCode.CollegeProtege.impl.Default";
         String jpqlWhere = "";
+        String afterJoin = "";
 
         int flag = 0;
 
@@ -187,6 +185,14 @@ public class QueryParser {
             }
         }
         
+        if(where.length > 6)
+        {
+            jpqlWhere += " Where s ";
+            jpqlWhere += where[5];
+            jpqlWhere += " ";
+            jpqlWhere += where[6];
+            jpqlWhere =  jpqlWhere.substring(0,jpqlWhere.length()-1);
+        }
         // System.out.println(jpqlFrom);
         // System.out.println("");
         
@@ -218,7 +224,7 @@ public class QueryParser {
                 jpqlSelect += "i.name,";
             else if(t.equals(where[i])){
                 String[] temp = where[1].split("[:]");
-                jpqlWhere += "i." + temp[1].substring(0,1).toUpperCase() + temp[1].substring(1); 
+                afterJoin += "i." + temp[1].substring(0,1).toUpperCase() + temp[1].substring(1); 
             } 
             else if(Pattern.compile("[?]").matcher(t).find()){
                 jpqlSelect += "s." + t.substring(1) + " ";
@@ -234,7 +240,7 @@ public class QueryParser {
         if(jpqlSelect.equals("*"))
             jpqlQuery = "select " + jpqlSelect + "from " + jpqlFrom;
         else
-            jpqlQuery = "select " + jpqlSelect + "s from " + jpqlFrom + " i JOIN " + jpqlWhere + " s";
+            jpqlQuery = "select " + jpqlSelect + "s from " + jpqlFrom + " i JOIN " + afterJoin + " s" + jpqlWhere;
         
         return jpqlQuery;
     }
@@ -267,6 +273,10 @@ public class QueryParser {
         System.out.println(s);
 
         s = convertQuery2("PREFIX foo: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#> PREFIX foo1: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#Professor> SELECT ?subject ?object WHERE{ ?subject foo:teaches ?object . ?subject rdf:type foo1: .}");
+		
+        System.out.println(s);
+
+        s = convertQuery2("PREFIX foo: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#> PREFIX foo1: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#iMTech> SELECT ?subject ?object WHERE{ ?subject foo:hasDebt ?object . FILTER (?object < 3000) ?subject rdf:type foo1: .}");
 		
         System.out.println(s);
 

@@ -61,12 +61,18 @@ public class NewMain {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory(db_path);
 			EntityManager em = emf.createEntityManager();
 			
+			EntityManagerFactory emf1 = Persistence.createEntityManagerFactory(db_path);
+			EntityManager em1 = emf1.createEntityManager();
+			
+			ArrayList<Object> emfs = new ArrayList<Object>();
+			
 			persistData(o, db_path, em);
 //			inverseProperty(o, owl_obj_props, prefix, em);
-			transitiveProperty(o, owl_obj_props, prefix, em);
-			symmetricProperty(o, owl_obj_props, prefix, em);
-			em.close();
-			emf.close();
+			
+			emfs = transitiveProperty(o, owl_obj_props, prefix, em, emf, db_path);
+			symmetricProperty(o, owl_obj_props, prefix, (EntityManager)(emfs.get(1)), (EntityManagerFactory)(emfs.get(0)), db_path);
+//			em.close();
+//			emf.close();
 			
 		} catch(Exception e) {
 			System.out.println("Exception from main: "+e.getMessage());
@@ -116,8 +122,8 @@ public class NewMain {
 					String range_iri = Iterables.getOnlyElement(set_inv_range).getRange().toString();
 					String source_property_iri = Iterables.getOnlyElement(set_inv_dom).getProperty().toString();
 					String target_property_iri = (source_property_iri.equals(Iterables.getOnlyElement(set_inv).getFirstProperty().toString()) ? 
-							Iterables.getOnlyElement(set_inv).getSecondProperty().toString() :
-								Iterables.getOnlyElement(set_inv).getFirstProperty().toString()	);
+					Iterables.getOnlyElement(set_inv).getSecondProperty().toString() :
+					Iterables.getOnlyElement(set_inv).getFirstProperty().toString()	);
 					
 					String domain = domain_iri.substring(domain_iri.indexOf("#")+"#".length(), domain_iri.length()-1);
 					String range = range_iri.substring(range_iri.indexOf("#")+"#".length(), range_iri.length()-1);
@@ -161,8 +167,10 @@ public class NewMain {
 		}
 	}
 	
-	public static void transitiveProperty(OWLOntology o, Collection<OWLObjectProperty> owl_obj_props, String prefix, EntityManager em) {
+	public static ArrayList<Object> transitiveProperty(OWLOntology o, Collection<OWLObjectProperty> owl_obj_props, String prefix, EntityManager em, EntityManagerFactory emf, String db_path) {
+		ArrayList<Object> res = new ArrayList<Object>();
 		try {
+			
 			for(OWLObjectProperty op: owl_obj_props) {
 				Set<OWLTransitiveObjectPropertyAxiom> set_trans = o.getTransitiveObjectPropertyAxioms(op);
 				Set<OWLObjectPropertyDomainAxiom> set_trans_dom = o.getObjectPropertyDomainAxioms(op);
@@ -180,9 +188,7 @@ public class NewMain {
 					String property = property_iri.substring(property_iri.indexOf("#")+"#".length(),property_iri.length()-1);
 					property = property.substring(0, 1).toUpperCase() + property.substring(1);
 					domain = domain.substring(0, 1).toUpperCase() + domain.substring(1);
-					
-					em.getTransaction().begin();
-					
+										
 					Class domain_class = Class.forName(prefix+domain);
 					List<Object> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", domain_class).getResultList();	
 					Map<Object, HashSet<Object>> relationshipMap = new HashMap<>();
@@ -192,9 +198,7 @@ public class NewMain {
 						for(Object ancestor : ancestors) {
 							System.out.println(((DefaultPeople) retObject).getName() + " yoooo " + ((DefaultPeople) ancestor).getName());
 						}
-
 					}
-					
 					
 					for (Map.Entry<Object,HashSet<Object>> relation : relationshipMap.entrySet()) {
 						Object object1 = relation.getKey();
@@ -210,7 +214,7 @@ public class NewMain {
 							}
 						}
 					}
-					em.getTransaction().commit();
+
 					em.getTransaction().begin();
 			    	int deletedCount = em.createQuery("DELETE FROM DefaultPeople").executeUpdate();
 			    	System.out.println("deletes "+deletedCount);
@@ -236,21 +240,22 @@ public class NewMain {
 					System.out.println(property_iri);
 					System.out.println(property);
 					System.out.println("-----------------");
-					em_new.getTransaction().commit();
-					em_new.close();
-					emf_new.close();
-				}
-				
+					em_new.getTransaction().commit();	
+
+					res.add(emf_new);
+					res.add(em_new);
+				}	
 			}
-			
 			System.out.println("---------Transitive updates complete-------------------------------------");
+			return res;
 		}
 		catch(Exception e) {
-			System.out.println("Exception: "+e.getMessage());
+			System.out.println("Exception from transitive: "+e.getMessage());
 		}
+		return res;
 	}
 	
-	public static void symmetricProperty(OWLOntology o, Collection<OWLObjectProperty> owl_obj_props, String prefix, EntityManager em) {
+	public static void symmetricProperty(OWLOntology o, Collection<OWLObjectProperty> owl_obj_props, String prefix, EntityManager em, EntityManagerFactory emf, String db_path) {
 		try {
 			for(OWLObjectProperty op: owl_obj_props) {
 				Set<OWLSymmetricObjectPropertyAxiom> set_symm = o.getSymmetricObjectPropertyAxioms(op);
@@ -270,50 +275,57 @@ public class NewMain {
 					String property = property_iri.substring(property_iri.indexOf("#")+"#".length(),property_iri.length()-1);
 					property = property.substring(0, 1).toUpperCase() + property.substring(1);
 					domain = domain.substring(0, 1).toUpperCase() + domain.substring(1);
-//						
+											
+					Class domain_class = Class.forName(prefix+domain);
+					List<Object> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", domain_class).getResultList();	
+					Map<Object, HashSet<Object>> relationshipMap = new HashMap<>();
+					for(Object retObject : retrieve) {
+						HashSet<Object> friends = (HashSet<Object>) ((DefaultPeople) retObject).getHasFriend();
+							relationshipMap.put(retObject, friends);	
+					}
+
+					for (Map.Entry<Object,HashSet<Object>> relation : relationshipMap.entrySet()) {
+						Object object1 = relation.getKey();
+						System.out.println("Main person: "+((DefaultPeople)object1).getName());
+						HashSet<Object> objects = relation.getValue();
+						for(Object obj : objects) {
+							System.out.println("Now considering obj: "+((DefaultPeople) obj).getName());
+							if (relationshipMap.containsKey(obj))
+							{
+								if(!relationshipMap.get(obj).contains(object1)) {
+								relationshipMap.get(obj).add(object1);
+								}
+							}
+							else {
+								HashSet<Object> friendssss = new HashSet<Object>();
+								relationshipMap.put(obj, friendssss);
+								relationshipMap.get(obj).add(object1);
+							}
+						}
+					}
+					
 					em.getTransaction().begin();
-//					
-//					Class domain_class = Class.forName(prefix+domain);
-//					List<Object> retrieve = em.createQuery("SELECT o FROM "+prefix+domain+" o", domain_class).getResultList();	
-//					Map<Object, HashSet<Object>> relationshipMap = new HashMap<>();
-//					for(Object retObject : retrieve) {
-//						HashSet<Object> ancestors = (HashSet<Object>) ((DefaultPeople) retObject).getHasAncestor();
-//						for(Object ancestor : ancestors) {
-//							relationshipMap.put(retObject, ancestors);
-//							System.out.println(((DefaultPeople) retObject).getName() + " yoooo " + ((DefaultPeople) ancestor).getName());
-//						}
-//	
-//					}
-//					
-//					for (Map.Entry<Object,HashSet<Object>> relation : relationshipMap.entrySet()) {
-//						Object object1 = relation.getKey();
-//						HashSet<Object> objects = relation.getValue();
-//						for(Object obj : objects) {
-//							System.out.println(((DefaultPeople) obj).getName());
-//							if(relationshipMap.containsKey(obj)) {
-//							for(Object obj2 : relationshipMap.get(obj)) {
-//								if(obj2 != null) {
-//									objects.add(obj2);
-//								}
-//							}
-//							}
-//						}
-//					}
-//					
-//					for(Map.Entry<Object,HashSet<Object>> relation : relationshipMap.entrySet()) {
-//						for(Object obj : relation.getValue()) {
-//							System.out.println(((DefaultPeople) relation.getKey()).getName() + "yes man" +  ((DefaultPeople) obj).getName());
-//							((DefaultPeople) relation.getKey()).setHasAncestor(obj);
-//						}
-//					}
-//					
-//					System.out.println(domain_iri);
-//					System.out.println(domain);
-//					System.out.println(property_iri);
-//					System.out.println(property);
+			    	int deletedCount = em.createQuery("DELETE FROM DefaultPeople").executeUpdate();
+			    	System.out.println("deletes "+deletedCount);
+			    	em.getTransaction().commit();
+			    	em.close();
+			    	emf.close();
+			    	
+			    	EntityManagerFactory emf_new = Persistence.createEntityManagerFactory(db_path);
+					EntityManager em_new = emf_new.createEntityManager();
+					
+					em_new.getTransaction().begin();
+					for(Map.Entry<Object,HashSet<Object>> relation : relationshipMap.entrySet()) {
+						for(Object obj : relation.getValue()) {
+							((DefaultPeople) relation.getKey()).setHasFriend(obj);
+						}
+						em_new.persist(relation.getKey());
+					}
 					System.out.println("-----------------");
 					
-					em.getTransaction().commit();	
+					em_new.getTransaction().commit();	
+					em_new.close();
+					emf_new.close();
 				}
 			}
 		}

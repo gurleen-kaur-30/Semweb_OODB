@@ -183,6 +183,13 @@ public String getName() {
     	p1.add((DefaultPeople) p_new);
     	this.HasAncestor = p1;
     }
+    
+    public void setHasFriend(Object p) {
+    	DefaultPeople p_new = (DefaultPeople)p;
+    	HashSet<DefaultPeople> p1  = (HashSet<DefaultPeople>) this.HasFriend;
+    	p1.add((DefaultPeople) p_new);
+    	this.HasAncestor = p1;
+    }
 
 
 }

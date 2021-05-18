@@ -61,7 +61,7 @@ public class QueryParser {
         
         String jpqlQuery = "";
         String jpqlSelect = "";
-        String jpqlFrom = "ProtegeGenCode.CollegeProtege.impl.Default";
+        String jpqlFrom = "Default";
         String jpqlWhere = "";
 
         int flag = 0;
@@ -125,7 +125,7 @@ public class QueryParser {
         
         String jpqlQuery = "";
         String jpqlSelect = "";
-        String jpqlFrom = "ProtegeGenCode.CollegeProtege.impl.Default";
+        String jpqlFrom = "Default";
         String jpqlWhere = "";
         String afterJoin = "";
 

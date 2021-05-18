@@ -224,7 +224,6 @@ public class CollegeProtege implements CodeGenerationFactory {
      * Gets all instances of Professor from the ontology.
      */
     public Collection<? extends Professor> getAllProfessorInstances() {
-    	System.out.println("GetAllProfs called");
 		return delegate.getWrappedIndividuals(Vocabulary.CLASS_PROFESSOR, DefaultProfessor.class);
     }
 

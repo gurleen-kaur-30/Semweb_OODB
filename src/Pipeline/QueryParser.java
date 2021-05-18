@@ -205,10 +205,17 @@ public class QueryParser {
 
 
     public static void main(String[] argv) {
-    	String query = "PREFIX foo: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#> PREFIX foo1: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#iMTech> SELECT ?subject ?object WHERE{ ?subject foo:hasRollNumber ?object . ?subject rdf:type foo1: .}";
-		int type = 2;
+    	String query = "PREFIX foo: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#iMTech> SELECT ?subject WHERE { ?subject rdf:type foo: }";
+//    	String query = "PREFIX foo: <http://www.semanticweb.org/gurleen/ontologies/people#people> SELECT ?subject WHERE { ?subject rdf:type foo: }";
+    	int type = 1;
+    	
+    	
+//    	String query = "PREFIX foo: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#> PREFIX foo1: <http://www.semanticweb.org/prateksha/ontologies/2021/1/college#iMTech> SELECT ?subject ?object WHERE{ ?subject foo:hasDebt ?object . ?subject rdf:type foo1: .}";
+//		String query = "PREFIX foo: <http://www.semanticweb.org/gurleen/ontologies/people#> PREFIX foo1: <http://www.semanticweb.org/gurleen/ontologies/people#people> SELECT  ?subject  ?object WHERE{ ?subject foo:hasFriend ?object . ?subject rdf:type foo1: .}";	
+//    	int type = 2;
 		
-        String db_path = "jars/db/college.odb";
+//        String db_path = "jars/db/college.odb";
+    	String db_path = "jars/db/people.odb";
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(db_path);
         EntityManager em = emf.createEntityManager();
         RunQuery rq = new RunQuery();

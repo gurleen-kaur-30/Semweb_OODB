@@ -60,3 +60,20 @@ JPQL:
 
 SELECT i.name, s FROM DefaultIMTech i JOIN i.HasDebt s WHERE s<3000
 
+Query 5: On people.owl
+
+SPARQL: 
+
+PREFIX foo: <http://www.semanticweb.org/gurleen/ontologies/people#>
+PREFIX foo1: <http://www.semanticweb.org/gurleen/ontologies/people#people>
+
+SELECT  ?subject  ?object
+WHERE{ 
+	?subject foo:hasFriend ?object . 
+	?subject rdf:type foo1: . 
+	}
+	
+JPQL:
+
+SELECT i.name, s FROM DefaultPeople i JOIN i.HasFriend s
+

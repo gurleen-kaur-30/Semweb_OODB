@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
 import ProtegeGenCode.CollegeProtege.impl.*;
+import ProtegeGenCode.Root2.impl.*;
 
 public class RunQuery {
 	public static void main(String[] args) {
@@ -41,7 +42,8 @@ public class RunQuery {
             for (Object[] ele: queryResults) {
             	System.out.println("--------------------------------------------------------------------------------");
            	    System.out.println(ele[0]);
-           	    System.out.println(ele[1]);
+           	    if(ele[1] != null)
+           	    	{System.out.println(ele[1]);}
            	}
         }
 	}

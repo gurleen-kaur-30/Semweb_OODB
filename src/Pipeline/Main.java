@@ -51,8 +51,7 @@ public class Main {
 //			String db_path = "jars/db/college.odb";
 //			String owl_file_path = "src/OWL_files/college.owl";
 //			String prefix = "ProtegeGenCode.CollegeProtege.impl.Default";
-			
-			
+						
 			File file = new File(owl_file_path);  
 			OWLOntologyManager om = OWLManager.createOWLOntologyManager();
 			OWLOntology o = om.loadOntologyFromOntologyDocument(file);

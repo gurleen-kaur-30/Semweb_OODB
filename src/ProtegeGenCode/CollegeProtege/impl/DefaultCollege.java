@@ -104,5 +104,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
                                           oldEmploys);
     }
 
-
+    @Override 
+    public String toString() {
+    	return name;
+    }
 }

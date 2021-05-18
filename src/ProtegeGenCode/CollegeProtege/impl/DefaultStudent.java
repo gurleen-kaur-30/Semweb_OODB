@@ -92,6 +92,10 @@ import com.objectdb.o.CLN.r;
     public void removeHasRollNumber(Integer oldHasRollNumber) {
 		getDelegate().removePropertyValue(getOwlIndividual(), Vocabulary.DATA_PROPERTY_HASROLLNUMBER, oldHasRollNumber);
     }
+    @Override 
+    public String toString() {
+    	return name;
+    }
 
 
 }

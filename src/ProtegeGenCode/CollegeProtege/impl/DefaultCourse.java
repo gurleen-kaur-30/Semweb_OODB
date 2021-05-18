@@ -57,5 +57,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
     	p1.add((DefaultProfessor) p_new);
     	this.TaughtBy = p1;
     }
+    
+    @Override 
+    public String toString() {
+    	return name;
+    }
 
 }

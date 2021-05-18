@@ -48,6 +48,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
     	return name;
     }
 
+    @Override 
+    public String toString() {
+    	return name;
+    }
 
     /* ***************************************************
      * Object Property http://www.semanticweb.org/prateksha/ontologies/2021/1/college#teaches

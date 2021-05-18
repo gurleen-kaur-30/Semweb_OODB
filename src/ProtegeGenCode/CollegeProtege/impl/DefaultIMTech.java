@@ -92,5 +92,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 		getDelegate().removePropertyValue(getOwlIndividual(), Vocabulary.DATA_PROPERTY_HASROLLNUMBER, oldHasRollNumber);
     }
 
+    @Override 
+    public String toString() {
+    	return name;
+    }
 
 }
